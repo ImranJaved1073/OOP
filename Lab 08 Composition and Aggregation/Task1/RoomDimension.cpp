@@ -1,15 +1,15 @@
 #include "RoomDimension.h"
 RoomDimension::RoomDimension()
 {
-	//cout << "RoomDimension's constructor was called..." << endl;
+	//cout << "RoomDimension's constructor ..." << endl;
 }
 RoomDimension::RoomDimension(int lf, int li, int wf, int wi) : length(lf, li), width(wf, wi)
 {
-	//cout << "RoomDimension's constructor was called..." << endl;
+	//cout << "RoomDimension's constructor ..." << endl;
 }
 RoomDimension::~RoomDimension()
 {
-	//cout << "RoomDimension's destructor was called..." << endl;
+	//cout << "RoomDimension's destructor ..." << endl;
 }
 void RoomDimension::setLength(int f, int i)
 {
