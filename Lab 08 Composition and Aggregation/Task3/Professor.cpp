@@ -3,12 +3,12 @@
 using namespace std;
 
 Professor::Professor()
-	{
-		name = "";
-		designation = "";
-		extNo = 0;
-		//cout << "Professor Default Constructor!" << endl;
-	}
+{
+	name = "";
+	designation = "";
+	extNo = 0;
+	//cout << "Professor Default Constructor!" << endl;
+}
 Professor::Professor(string name, string designation, int extNo)
 {
 	this->name = name;
