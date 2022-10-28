@@ -33,6 +33,7 @@ int main()
 		RoomCarpet r(feetLength, inchLength, feetWidth, inchWidth, c);
 		cout << "Cost for room:" << r.calculateTotalCost() << endl;
 	}
+	
 	else if (choice == 2)
 	{
 		cout << "How many rooms does the house have? ";
@@ -57,6 +58,4 @@ int main()
 		cout << "Cost for house: " << cost << endl;
 		
 	}
-
-
 }
