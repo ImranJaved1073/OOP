@@ -19,9 +19,7 @@ ostream& operator<<(ostream& out, const MyString& obj)		//overloading << operato
 istream& operator>>(istream& in, MyString& obj)
 {
 	int n = 10, i{};
-
 	char* temp = new char[n + 1];
-
 	bool flag = true;
 
 	for (i = 0; flag; i++)
@@ -29,33 +27,24 @@ istream& operator>>(istream& in, MyString& obj)
 		in.get(temp[i]);
 
 		if (temp[i] == 10)
-		{
 			flag = false;
-		}
 
 		if (i == n - 1)
 		{
 			n++;
-
 			char* temp2 = new char[n + 1];
 
 			for (int j = 0; j <= i; j++)
-			{
 				temp2[j] = temp[j];
-			}
 
 			delete[] temp;
-
 			temp = temp2;
 		}
 	}
 
 	temp[i - 1] = '\0';
-
 	delete[] obj.str;
-
 	obj.length = i - 1;
-
 	obj.str = temp;
 
 	return in;
@@ -71,7 +60,7 @@ int main()
 	cin >> choice;
 	system("cls");
 
-	while (choice < 1 || choice > 23)
+	while (choice < 1 || choice > 20)
 	{
 		cout << "Invalid choice. Please try again." << endl;
 		cout << "Choose from the following menu: " << endl;
@@ -103,6 +92,7 @@ int main()
 	else if (choice == 2)
 	{
 		cout << "\nPlease enter the string you want to get the length of: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nThe length of the entered string (including spaces) is: " << st1.getLength();
 		cout << "\n\n";
@@ -111,6 +101,7 @@ int main()
 	else if (choice == 3)
 	{
 		cout << "\nEnter String 1: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter String 2: ";
 		cin >> st2;
@@ -121,17 +112,14 @@ int main()
 	else if (choice == 4)
 	{
 		cout << "\nEnter String 1: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter String 2: ";
 		cin >> st2;
 		if (st1 == st2)
-		{
 			cout << "\n" << st1 << " and " << st2 << " are Equal.\n\n";
-		}
 		else
-		{
 			cout << "\n" << st1 << " and " << st2 << " are not Equal.\n\n";
-		}
 	}
 
 	else if (choice == 5)
@@ -142,84 +130,69 @@ int main()
 		cout << "\nEnter String 2: ";
 		cin >> st2;
 		if (st1 != st2)
-		{
 			cout << "\n" << st1 << " and " << st2 << " are not Equal.\n\n";
-		}
 		else
-		{
 			cout << "\n" << st1 << " and " << st2 << " are Equal.\n\n";
-		}
 	}
 
 	else if (choice == 6)
 	{
 		cout << "\nEnter String 1: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter String 2: ";
 		cin >> st2;
 		if (st1 < st2)
-		{
 			cout << "\n" << st1 << " is less than " << st2 << "\n\n";
-		}
 		else
-		{
 			cout << "\n" << st1 << " is not less than " << st2 << "\n\n";
-		}
 	}
 
 	else if (choice == 7)
 	{
 		cout << "\nEnter String 1: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter String 2: ";
 		cin >> st2;
 		if (st1 <= st2)
-		{
 			cout << "\n" << st1 << " is less than or equal to " << st2 << "\n\n";
-		}
 		else
-		{
 			cout << "\n" << st1 << " is not less than or equal to " << st2 << "\n\n";
-		}
 	}
 
 
 	else if (choice == 8)
 	{
 		cout << "\nEnter String 1: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter String 2: ";
 		cin >> st2;
 		if (st1 > st2)
-		{
 			cout << "\n" << st1 << " is greater than " << st2 << "\n\n";
-		}
 		else
-		{
 			cout << "\n" << st1 << " is not greater than " << st2 << "\n\n";
-		}
 	}
 
 	else if (choice == 9)
 	{
 		cout << "\nEnter String 1: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter String 2: ";
 		cin >> st2;
 		if (st1 >= st2)
-		{
 			cout << "\n" << st1 << " is greater than or equal to " << st2 << "\n\n";
-		}
 		else
-		{
 			cout << "\n" << st1 << " is not greater than or equal to " << st2 << "\n\n";
-		}
 	}
 
 
 	else if (choice == 10)
 	{
 		cout << "\nEnter String 1: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter String 2: ";
 		cin >> st2;
@@ -230,6 +203,7 @@ int main()
 	else if (choice == 11)
 	{
 		cout << "\nEnter the String: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nst1.str = " << st1 << "\n\n";
 	}
@@ -265,6 +239,7 @@ int main()
 	else if (choice == 15)
 	{
 		cout << "\nEnter the String: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter the starting index: ";
 		cin >> start;
@@ -276,51 +251,42 @@ int main()
 	else if (choice == 16)
 	{
 		cout << "\nEnter the String: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter the substring: ";
 		cin >> st2;
 		if (st1.find(st2) == -1)
-		{
 			cout << "Substring not found!\n\n";
-		}
 		else
-		{
 			cout << "\nThe index of the first occurence of the substring is: " << st1.find(st2) << "\n\n";
-		}
 	}
 
 	else if (choice == 17)
 	{
 		cout << "\nEnter the String: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter the character: ";
 		cin >> ch;
 		if (st1.find(ch) == -1)
-		{
 			cout << "\nCharacter not found!\n\n";
-		}
 		else
-		{
 			cout << "\nThe index of the first occurence of the character is: " << st1.find(ch) << "\n\n";
-		}
 	}
 
 	else if (choice == 18)
 	{
 		cout << "\nEnter the String: ";
+		cin.ignore();
 		cin >> st1;
 		cout << "\nEnter the substring: ";
 		cin >> st2;
 		cout << "\nEnter the starting index: ";
 		cin >> index;
 		if (st1.find(st2, index) == -1)
-		{
 			cout << "\nSubstring not found!\n\n";
-		}
 		else
-		{
 			cout << "\nThe index of the first occurence of the Substring after the starting index is: " << st1.find(st2, index) << "\n\n";
-		}
 	}
 
 	else if (choice == 19)
@@ -331,13 +297,9 @@ int main()
 		cout << "\nEnter the substring: ";
 		cin >> st2;
 		if (st1.rfind(st2) == -1)
-		{
 			cout << "\nSubstring not found!\n\n";
-		}
 		else
-		{
 			cout << "\nThe start index of the last occurence of substring in the MyString object is: " << st1.rfind(st2) << "\n\n";
-		}
 	}
 
 	else if (choice == 20)
@@ -348,13 +310,9 @@ int main()
 		cout << "\nEnter the character: ";
 		cin >> ch;
 		if (st1.rfind(ch) == -1)
-		{
 			cout << "\nCharacter not found!\n\n";
-		}
 		else
-		{
 			cout << "\nThe index of last occurence of character in the MyString object is: " << st1.rfind(ch) << "\n\n";
-		}
 	}
 
 }
@@ -383,6 +341,3 @@ void menu()
 	cout << "\n\t20- Get index of last occurence of character in the MyString object.";
 	cout << "\n\n\n";
 }
-
-
-
