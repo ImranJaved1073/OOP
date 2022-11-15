@@ -53,4 +53,5 @@ int main()
 	lumia.turnOn();
 	lumia.turnOff();
 
+	cout << endl << endl;
 }
