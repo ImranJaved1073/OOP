@@ -11,6 +11,7 @@ class CruiseShip : public Ship
 private:
 	int maxPassengers;
 public:
+	CruiseShip();
 	CruiseShip(int, string, string);
 	int getMaxPassengers();
 	void setMaxPassengers(int);

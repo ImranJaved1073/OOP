@@ -3,6 +3,11 @@
 #include <string>
 using namespace std;
 
+CruiseShip::CruiseShip() : Ship()
+{
+	maxPassengers = 0;
+}
+
 CruiseShip::CruiseShip(int max, string n, string y) : Ship(n, y)
 {
 	maxPassengers = max;
