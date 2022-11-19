@@ -14,7 +14,7 @@ int main()
 	cin >> choice;
 	while (choice < 1 || choice > 2)
 	{
-		cout << "Invalid choice. Please enter a number 1 or 2." << endl;
+		cout << "Invalid choice. Please enter a number 1 or 2: ";
 		cin >> choice;
 	}
 	if (choice == 1)
@@ -24,14 +24,16 @@ int main()
 		p = new Student;
 		int* marks;
 
-		cout << "Enter Student Data: " << endl;
+		cout << "______________________STUDENT____________________" << endl;
+		cout << "                ENTER STUDENT DATA " << endl;
+		cout <<"_________________________________________________"<<endl;
 		cout << "Enter the name of the Student:";
 		cin.ignore();
 		getline(cin, name);
 		cout << "Enter the Age of the Student:";
 		while (!(cin >> age) || age < 0 || age > 100)
 		{
-			cout << "Invalid age. Please enter a number between 0 and 100." << endl;
+			cout << "Invalid age. Please enter a number between 0 and 100: ";
 			cin.clear();
 			cin.ignore(1000, '\n');
 		}
@@ -40,7 +42,7 @@ int main()
 		cout << "Enter number of subjects: ";
 		while (!(cin >> numOfSubjects) || numOfSubjects < 0)
 		{
-			cout << "Invalid number of subjects. Please enter a number greater than 0." << endl;
+			cout << "Invalid number of subjects. Please enter a number greater than 0: ";
 			cin.clear();
 			cin.ignore(1000, '\n');
 		}
@@ -56,16 +58,20 @@ int main()
 			cout << "Enter marks for subject " << i + 1 << ": ";
 			while (!(cin >> marks[i]) || marks[i] < 0 || marks[i] > 100)
 			{
-				cout << "Invalid marks. Please enter marks between 0 and 100." << endl;
+				cout << "Invalid marks. Please enter marks between 0 and 100: ";
 				cin.clear();
 				cin.ignore(1000, '\n');
 			}
 		}
 		p->setMarks(marks, numOfSubjects);
+		cout << "_________________________________________________" << endl;
+		cout << "            INFORMATION OF STUDENT  " << endl;
+		cout << "_________________________________________________" << endl;
 		p->printInfo();
+		cout << "_________________________________________________" << endl;
 		delete p;
 		p= nullptr;
-		//------------------------------------------------------------------
+
 	}
 	else if (choice == 2)
 	{
@@ -75,7 +81,9 @@ int main()
 		p = new Teacher;
 		string* lecturesName;
 		
-		cout << "Enter Teacher Data: " << endl;
+		cout << "______________________TEACHER____________________" << endl;
+		cout << "                ENTER TEACHER DATA " << endl;
+		cout << "_________________________________________________" << endl;
 		cout << "Enter name: ";
 		cin.ignore();
 		getline(cin, name);
@@ -104,7 +112,11 @@ int main()
 			getline(cin, lecturesName[i]);
 		}
 		p->setLectures(lecturesName, numOfLectures);
+		cout << "_________________________________________________" << endl;
+		cout << "             INFORMATION OF TEACHER  " << endl;
+		cout << "_________________________________________________" << endl;
 		p->printInfo();
+		cout << "_________________________________________________" << endl;
 		delete p;
 		p = nullptr;
 	}
