@@ -38,3 +38,6 @@ Person::~Person()
 {
 	cout << "\nPerson destructor called" << endl;
 }
+
+void Person::setMarks(int*, int) {}
+void Person::setLectures(string*, int){}

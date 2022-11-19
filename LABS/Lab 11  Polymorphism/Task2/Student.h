@@ -17,6 +17,7 @@ public:
 	Student(string, int, int*, int);
 	int* getMarks() const;
 	int getNumSubjects() const;
+	void setNumOfSubjects(int);
 	void setMarks(int*, int);
 	void printInfo();
 	~Student();

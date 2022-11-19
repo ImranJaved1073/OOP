@@ -20,6 +20,8 @@ public:
 	void setAge(int);
 	virtual void printInfo();
 	virtual ~Person();
+	virtual void setMarks(int*, int);
+	virtual void setLectures(string*, int);
 };
 
 #endif // PERSON_H

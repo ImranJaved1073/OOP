@@ -24,6 +24,11 @@ int* Student::getMarks() const
 	return marks;
 }
 
+void Student::setNumOfSubjects(int n)
+{
+	numSubjects = n;
+}
+
 int Student::getNumSubjects() const
 {
 	return numSubjects;
