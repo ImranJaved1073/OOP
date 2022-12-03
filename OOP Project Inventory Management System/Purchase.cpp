@@ -6,6 +6,13 @@
 
 using namespace std;
 
+void Purchase::pauseAndClear()
+{
+	cout << "\n\n\t";
+	system("pause");
+	system("cls");
+}
+
 Purchase::Purchase()
 {
 	PurchaseItemArray = nullptr;
@@ -112,6 +119,7 @@ void Purchase::addPurshase(Stock& obj)
 			//string itemCode; int quantity;
 			do
 			{
+				pauseAndClear();
 				cout << "\n\n\t\tEnter item Name: ";
 
 				getline(cin, itemName);
@@ -149,14 +157,13 @@ void Purchase::addPurshase(Stock& obj)
 
 					PurchaseItemArray[i] = obj.getItem(index);
 					PurchaseItemArray[i].setQuantity(CustomerQuantity);
-					obj.getItem(index).setQuantity(obj.getItem(index).getQuantity() - CustomerQuantity);
+					PurchaseItemArray[i].setTotalPrice();
+					obj.updateItem(CustomerQuantity, itemName);
 				}
 				cout << endl;
 			} while (index == -1);
 		}
-		cout << "\n\n\tPress Enter to Continue...";
-		cin.get();
-		system("cls");
+		pauseAndClear();
 	}
 }
 
@@ -236,9 +243,7 @@ bool Purchase::deletePurchasedItem(string name, Stock& obj)
 	{
 		return flag;
 	}
-	cout << "\n\n\tPress Enter to Continue...";
-	cin.get();
-
+	pauseAndClear();
 }
 
 void Purchase::gotoXY(int x, int y)

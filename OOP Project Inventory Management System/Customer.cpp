@@ -8,6 +8,13 @@ using namespace std;
 
 HANDLE c = GetStdHandle(STD_OUTPUT_HANDLE);
 
+void Customer::pauseAndClear()
+{
+	cout << "\n\n\t";
+	system("pause");
+	system("cls");
+}
+
 Customer::Customer()
 {
 	address = "";
@@ -137,6 +144,7 @@ void Customer::customerAccess()
 	cout << "Enter your email: ";
 	getline(cin, email);
 	setCustomer(name, "0", CNIC, phone, address, email);
+	pauseAndClear();
 	do
 	{
 		displayCustomerMenu();
@@ -153,8 +161,7 @@ void Customer::customerAccess()
 			else
 			purchaseItem.addPurshase(obj);
 			
-			cin.get();
-			system("cls");
+			pauseAndClear();
 			//purchaseItem.displayReceipt();
 			//customerChoice = 4;
 			/*cout << "Press Enter to continue...";
@@ -166,8 +173,7 @@ void Customer::customerAccess()
 		case 2:
 		{
 			obj.printStock();
-			system("pause");
-			system("cls");
+			pauseAndClear();
 			break;
 		}
 
@@ -178,13 +184,13 @@ void Customer::customerAccess()
 				int indexOfItem = -1;
 
 				char choice = 'y';
-				cin.ignore();
+				//cin.ignore();
 				while (choice == 'y' || choice == 'Y')
 				{
 					do {
 						string itemname;
 						cout << "\n\n\n\t\tEnter item name: ";
-						cin >> itemname;
+						getline(cin, itemname);
 						indexOfItem = obj.searchItemName(itemname);
 						if (indexOfItem == -1)
 							cout << "\u001b[31m\n\n\t\tItem not found" << endl << "Please enter correct item Name.\u001b[0m\n";
@@ -197,62 +203,69 @@ void Customer::customerAccess()
 							cout << "\n\tItem total price: " << obj.getItem(indexOfItem).getTotalPrice() << endl;
 						}
 					} while (indexOfItem == -1);
+					pauseAndClear();
 					cout << endl << "\n\n\tDo you want to search another item? (press y for yes and any other key for no): ";
 					cin >> choice;
+					cin.ignore();
 				}
 			}
 			else
 			{
 				cout << "\n\n\t\t\t\t\t\t\u001b[35mSTOCK IS EMPTY!!.\u001b[0m\n\n";
 			}
+			pauseAndClear();
+			//cin.clear();
+			cin.ignore(1000, '\n');
 
 			break;
 		}
 
 		case 4://update purchased item list 
-		{
-			if (receiptStatus == true)
+		{	
+			if (obj.getSize() != 0)
 			{
-				cout << "\n\n\n\t\t\u001b[34mReceipt has already been generated.\u001b[0m" << endl;
-			}
-			else if (purchaseItem.getNumberOfPurchasedItems() > 0)
-			{
-				purchaseItem.displayReceipt();
-				int num = -1;
-				string name;
-				while (num > purchaseItem.getNumberOfPurchasedItems() || num < 0)
+				if (receiptStatus == true)
 				{
-					cout << "\n\n\t\tEnter the number of item you want to update: ";
-					cin >> num;
-					if (num > purchaseItem.getNumberOfPurchasedItems() || num < 0)
-						cout << "\n\n\t\t\u001b[31mYou have entered wrong number of items!\u001b[0m\n";
+					cout << "\n\n\n\t\t\u001b[34mReceipt has already been generated.\u001b[0m" << endl;
 				}
-
-				bool flag = true;
-				for (int i = 0; i < num; i++)
+				else if (purchaseItem.getNumberOfPurchasedItems() > 0)
 				{
-					do
-					{
-						if (flag == false)
-						{
-							cout << "\n\n\t\t\u001b[31mThe Item name you entered did not match to any item!!\u001b[0m\n";
-							cout << "\n\t\tPlease enter correct Item name.\n";
-						}
-						cout << "\n\t\tEnter the name of item: ";
-						cin >> name;
-						flag = purchaseItem.updatePurchasedItem(name, obj);
+					purchaseItem.displayReceipt();
+					string name;
 
-					} while (flag == false);
+					bool flag = true;
+					char choice = 'y';
+					while (choice == 'y' || choice == 'Y')
+					{
+						do
+						{
+							if (flag == false)
+							{
+								cout << "\n\n\t\t\u001b[31mThe Item name you entered did not match to any item!!\u001b[0m\n";
+								cout << "\n\t\tPlease enter correct Item name.\n";
+							}
+							cout << "\n\t\tEnter the name of item: ";
+							getline(cin, name);
+							flag = purchaseItem.updatePurchasedItem(name, obj);
+
+						} while (flag == false);
+						pauseAndClear();
+						cout << endl << "\n\n\tDo you want to update another item? (press y for yes and any other key for no): ";
+						cin >> choice;
+						cin.ignore();
+					}
+				}
+				else
+				{
+					cout << "\n\n\t\t\u001b[34mNo items purchased yet.\u001b[0m" << endl;
 				}
 			}
 			else
 			{
-				cout << "\n\n\t\t\u001b[34mNo items purchased yet.\u001b[0m" << endl;
+				cout << "\n\n\t\t\t\t\t\t\u001b[35mSTOCK IS EMPTY!!.\u001b[0m\n\n";
 			}
-
-			cout << "\n\n\tPress Enter to continue...";
-			cin.get();
-			system("cls");
+			
+			pauseAndClear();
 			break;
 		}
 
@@ -274,9 +287,7 @@ void Customer::customerAccess()
 			{
 				cout << "\n\n\t\t\u001b[34mNo items purchased yet.\u001b[0m" << endl;
 			}
-			cout << "\n\n\tPress Enter to continue...";
-			cin.get();
-			system("cls");
+			pauseAndClear();
 			break;
 		}
 
@@ -324,10 +335,7 @@ void Customer::customerAccess()
 			{
 				cout << "\n\n\t\t\u001b[34mNo items purchased yet.\u001b[0m" << endl;
 			}
-			cout << "\n\t\tPress Enter to continue...";
-			//cin.ignore();
-			cin.get();
-			system("cls");
+			pauseAndClear();
 			break;
 		}
 

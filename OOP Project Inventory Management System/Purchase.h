@@ -30,6 +30,8 @@ public:
 	
 	void gotoXY(int, int);
 
+	void pauseAndClear();
+
 };
 
 #endif // !PURCHASE_H

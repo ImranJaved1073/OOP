@@ -36,6 +36,7 @@ public:
 
 	void saveReceipt();
 	void customerAccess();
+	void pauseAndClear();
 };
 
 
