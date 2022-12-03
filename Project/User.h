@@ -2,7 +2,7 @@
 #define USER_H
 
 #include <string>
-#include <iostream>
+//#include <iostream>
 
 using namespace std;
 
@@ -14,39 +14,13 @@ private:
 	string contact;
 public:
 
-	User()
-	{
-		name = " ";
-		userid = " ";
-		contact = " ";
-	}
-	void setUser(string n, string id, string p)
-	{
-		name = n;
-		userid = id;
-		contact = p;
-	}
-	void print()
-	{
-		cout << "Name : " << name << endl;
-		cout << "User Id : " << userid << endl;
-		cout << "Phone Number : " << contact << endl;
-	}
-	string getName()
-	{
-		return name;
-	}
-	string getPhone()
-	{
-		return contact;
-	}
-	string getUserid()
-	{
-		return userid;
-	}                                                     												
-
+	User();
+	void setUser(string, string, string);
+	void print();
+	string getName();
+	string getPhone();
+	string getUserid();
 };
-
 
 #endif // !USER_H
 
