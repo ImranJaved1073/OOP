@@ -209,8 +209,9 @@ void Admin::adminAccess()
 					cin >> quantity;
 					if (quantity < 1)
 					{
-						cout << "\u001b[31m\n\n\t\tQuantity of " << itemName << " must be greater than 0. Please try again.\u001b[0m" << endl;
-						cout << "\n\t\tEnter quantity of\u001b[33m " << itemName << "\u001b[0m :";
+						cout << "\033[A\33[2K\r";
+						cout << "\t\t\u001b[31mInvalid Quantity.\u001b[0mValid Quantity of\u001b[33m " << itemName << "\u001b[0m must be greater than 0: ";
+						//cout << "\t\tEnter quantity of\u001b[33m " << itemName << "\u001b[0m :";
 						cin.clear();
 						cin.ignore(1000, '\n');
 					}
@@ -243,7 +244,7 @@ void Admin::adminAccess()
 			cout << "\n\n\t\t\u001b[32m" << count << " Item(s) added successfully.\u001b[0m" << endl;
 
 			pauseAndClear();
-			cin.clear();
+			//cin.clear();
 			cin.ignore(1000, '\n');
 			break;
 		}//end of case 1
@@ -275,9 +276,10 @@ void Admin::adminAccess()
 					pauseAndClear();
 					cout << "\n\n\n\t\tDo you want to update another item to stock? (press y for yes and any other key for no): ";
 					cin >> choice;
+					cin.ignore();
 				}
 				pauseAndClear();
-				cin.clear();
+				//cin.clear();
 				cin.ignore(1000, '\n');
 			}
 			break;

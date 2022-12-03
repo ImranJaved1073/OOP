@@ -246,7 +246,8 @@ int Stock::updateItem(string itemCode)
 			cout << "\n\t\tEnter the quantity: ";
 			while (!(cin >> quantity) || quantity < 0)
 			{
-				cout << "\n\t\t\u001b[31mInvalid input.\u001b[0m Please enter a valid quantity: ";
+				cout << "\033[A\33[2K\r";
+				cout << "\t\t\u001b[31mInvalid input.\u001b[0m Please enter a valid quantity: ";
 				cin.clear();
 				cin.ignore(1000, '\n');
 			}
@@ -272,7 +273,8 @@ int Stock::updateItem(string itemCode)
 			cout << "\n\n\t\tEnter the new price of " << items[index].getItemName() << ": ";
 			while (!(cin >> cost) || cost < 0)
 			{
-				cout << "\n\t\t\u001b[31mInvalid input\u001b[0m. Please enter a valid price: ";
+				cout << "\033[A\33[2K\r";
+				cout << "\t\t\u001b[31mInvalid input\u001b[0m. Please enter a valid price: ";
 				cin.clear();
 				cin.ignore(1000, '\n');
 			}

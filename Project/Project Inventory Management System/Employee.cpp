@@ -245,9 +245,11 @@ void Employee::employeeAccess()
 					getline(cin, itemCode);
 					index = object.searchItem(itemCode);
 					if (index == -1)
-						cout << "\u001b[31m\n\n\t\tItem not found!!\u001b[0m" << endl
-						<< "\n\n\t\tKindly inform the Admin that item is not in the stock whick you are searching" << endl
-						<< "\t\tso that he can add the item in the stock " << endl;
+					{
+						cout << "\u001b[31m\n\n\t\tItem not found!!\u001b[0m" << endl;
+						cout << "\n\n\t\tKindly inform the Admin that item is not in the stock whick you are searching" << endl;
+						cout << "\t\tso that he can add the item in the stock " << endl;
+					}
 					else
 					{
 						cout << "\n\n\n\tItem name: " << object.getItem(index).getItemName() << endl;
