@@ -240,7 +240,14 @@ int Stock::updateItem(string itemCode)
 		char choice;
 		cin >> choice;
 		//cin.ignore();
-		
+		while (choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N')
+		{
+			cout << "\033[A\33[2K\r";
+			cout << "\t\t\u001b[31mInvalid input.\u001b[0m Please enter a valid choice(y/n): ";
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cin >> choice;
+		}
 		if (choice == 'y' || choice == 'Y')
 		{
 			cout << "\n\t\tEnter the quantity: ";
@@ -252,13 +259,18 @@ int Stock::updateItem(string itemCode)
 				cin.ignore(1000, '\n');
 			}
 			cout << "\n\n\t\tDo you want to add or remove quantity of " << items[index].getItemName() << "?\n\n\t\t1. Add\n\t\t2. Remove\n\n\t\tEnter your choice: ";
-			cin >> choice1;
-			do {
-				if (choice1 == 1)
-					items[index].setQuantity(items[index].getQuantity() + quantity);
-				else if (choice1 == 2)
-					items[index].setQuantity(items[index].getQuantity() - quantity);
-			}while (choice1 != 1 && choice1 != 2);
+			while (!(cin >> choice1) || choice1 < 1 || choice1 > 2)
+			{
+				cout << "\033[A\33[2K\r";
+				cout << "\t\t\u001b[31mInvalid input.\u001b[0m Please enter a valid choice(1/2): ";
+				cin.clear();
+				cin.ignore(1000, '\n');
+			}
+			if (choice1 == 1)
+				items[index].setQuantity(items[index].getQuantity() + quantity);
+			else
+				items[index].setQuantity(items[index].getQuantity() - quantity);
+			
 			cout << "\u001b[34m\n\n\t\tThe Quantity of " << getItem(index).getItemName() << " against " << itemCode << " code has been updated successfully.\u001b[0m" << endl << endl;
 		}
 		//update price of the item
@@ -267,6 +279,14 @@ int Stock::updateItem(string itemCode)
 		cin.clear();
 		cin.ignore(1000,'\n');
 		cin >> choice2;
+		while (choice2 != 'y' && choice2 != 'Y' && choice2 != 'n' && choice2 != 'N')
+		{
+			cout << "\033[A\33[2K\r";
+			cout << "\t\t\u001b[31mInvalid input.\u001b[0m Please enter a valid choice(y/n): ";
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cin >> choice2;
+		}
 		if (choice2 == 'y' || choice2 == 'Y')
 		{
 			long double cost;
@@ -282,8 +302,7 @@ int Stock::updateItem(string itemCode)
 			items[index].setTotalPrice();
 			cout << "\u001b[34m\n\n\t\tThe Price of " << getItem(index).getItemName() << " against " << itemCode << " code has been updated successfully.\u001b[0m" << endl << endl;
 		}
-		cin.clear();
-		cin.ignore(1000, '\n');
+		
 		
 		return index;
 	}
@@ -360,35 +379,37 @@ void Stock::printStock()
 	else
 	{
 		SetConsoleTextAttribute(s, 15);
-		gotoXY(0, 5);
-		cout << "------------------------------------------------------------------------------------------------------------" << endl;
-		gotoXY(0, 6);
-		cout << "	ITEM #";
-		gotoXY(22, 6);
-		cout << "|	    ITEM NAME";
-		gotoXY(44, 6);
-		cout << "|	   ITEM CODE";
-		gotoXY(66, 6);
-		cout << "|	  QUANTITY";
-		gotoXY(88, 6);
-		cout << "|	PRICE	   |";
-		gotoXY(0, 7);
-		cout << "------------------------------------------------------------------------------------------------------------" << endl;
+		gotoXY(25, 5);
+		cout << "\u001b[43m------------------------------------------------------------------------------------------------------------\u001b[0m" << endl;
+		gotoXY(25, 6);
+		cout << "|\u001b[32m	ITEM #\u001b[0m"; 
+		gotoXY(47, 6);
+		cout << "      \u001b[32mITEM NAME\u001b[0m";
+		gotoXY(69, 6);
+		cout << "      \u001b[32mITEM CODE\u001b[0m";
+		gotoXY(91, 6);
+		cout << "	 \u001b[32mQUANTITY\u001b[0m";
+		gotoXY(113, 6);
+		cout << "        \u001b[32mPRICE\u001b[0m      |";
+		gotoXY(25, 7);
+		cout << "\u001b[43m------------------------------------------------------------------------------------------------------------\u001b[0m" << endl;
 		for (int i = 0; i < size; i++)
 		{
-			gotoXY(0, 8 + i);
-			cout << "	  " << i + 1;
-			gotoXY(22, 8 + i);
-			cout << "|	      " << items[i].getItemName();
-			gotoXY(44, 8 + i);
-			cout << "|	    " << items[i].getItemCode();
-			gotoXY(66, 8 + i);
-			cout << "|	   " << items[i].getQuantity();
-			gotoXY(88, 8 + i);
-			cout << "|	" << items[i].getPrice();
+			gotoXY(25, 8 + i);
+			cout << "|     " << "\u001b[33m" << i + 1 << "\u001b[0m";
+			gotoXY(47, 8 + i);
+			cout << "| " << items[i].getItemName();
+			gotoXY(69, 8 + i);
+			cout << "| " << items[i].getItemCode();
+			gotoXY(91, 8 + i);
+			cout << "| " << items[i].getQuantity();
+			gotoXY(113, 8 + i);
+			cout << "| " << items[i].getPrice() << "/= Rs.";
+			gotoXY(132, 8 + i);
+			cout << "|";
 		}
-		gotoXY(0, 8 + size);
-		cout << "------------------------------------------------------------------------------------------------------------" << endl;
+		gotoXY(25, 8 + size);
+		cout << "\u001b[43m------------------------------------------------------------------------------------------------------------\u001b[0m" << endl;
 		SetConsoleTextAttribute(s, 7);
 	}
 

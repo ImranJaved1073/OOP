@@ -112,6 +112,7 @@ void Admin::changePassword()
 	{
 		SetConsoleTextAttribute(a, 4);
 		cout << "\n\t\tPasswords do not match. Please try again!" << endl;
+		pauseAndClear();
 		SetConsoleTextAttribute(a, 15);
 		cout << "\n\n\n\t\tEnter new password: ";
 		getline(cin, password);
@@ -192,7 +193,8 @@ void Admin::adminAccess()
 			while (choice == 'y' || choice == 'Y')
 			{
 				count++;
-
+				stock.printStock();
+				pauseAndClear();
 				string itemName, itemCode;
 
 				int quantity = -1;
@@ -210,7 +212,7 @@ void Admin::adminAccess()
 					if (quantity < 1)
 					{
 						cout << "\033[A\33[2K\r";
-						cout << "\t\t\u001b[31mInvalid Quantity.\u001b[0mValid Quantity of\u001b[33m " << itemName << "\u001b[0m must be greater than 0: ";
+						cout << "\t\t\u001b[31mInvalid Quantity.\u001b[0mEnter Valid Quantity of\u001b[33m " << itemName << "\u001b[0m ,must be greater than 0: ";
 						//cout << "\t\tEnter quantity of\u001b[33m " << itemName << "\u001b[0m :";
 						cin.clear();
 						cin.ignore(1000, '\n');
@@ -223,8 +225,9 @@ void Admin::adminAccess()
 					cin >> price;
 					if (price < 1)
 					{
-						cout << "\u001b[31m\n\n\t\tPrice of " << itemName << " must be more than 0. Please try again.\u001b[0m" << endl;
-						cout << "\n\t\tEnter price of\u001b[33m " << itemName << "\u001b[0m :";
+						cout << "\033[A\33[2K\r";
+						cout << "\u001b[31m\t\tValid Price of " << itemName << " must be more than 0. Please Enter again: \u001b[0m";
+						//cout << "\n\t\tEnter price of\u001b[33m " << itemName << "\u001b[0m :";
 						cin.clear();
 						cin.ignore(1000, '\n');
 					}
@@ -234,7 +237,7 @@ void Admin::adminAccess()
 				stock.addItem(item);
 
 				cout << "\u001b[34m\n\n\t\t" << itemName << " against " << itemCode << " code added successfully!\u001b[0m" << endl << endl;
-				
+
 				pauseAndClear();
 				cout << "\n\n\t\tDo you want to add another item to stock? (press y for yes and any other key for no): ";
 				cin >> choice;
@@ -242,10 +245,10 @@ void Admin::adminAccess()
 			}
 
 			cout << "\n\n\t\t\u001b[32m" << count << " Item(s) added successfully.\u001b[0m" << endl;
+			cin.ignore(1000, '\n');
 
 			pauseAndClear();
 			//cin.clear();
-			cin.ignore(1000, '\n');
 			break;
 		}//end of case 1
 
@@ -264,6 +267,8 @@ void Admin::adminAccess()
 
 				while (choice == 'y' || choice == 'Y')
 				{
+					stock.printStock();
+					pauseAndClear();
 					cout << "\n\t\tEnter item code: ";
 					getline(cin, itemCode);
 
@@ -278,9 +283,10 @@ void Admin::adminAccess()
 					cin >> choice;
 					cin.ignore();
 				}
+				cin.ignore(1000, '\n');
 				pauseAndClear();
 				//cin.clear();
-				cin.ignore(1000, '\n');
+
 			}
 			break;
 		}//end of case 2
@@ -320,11 +326,16 @@ void Admin::adminAccess()
 					}
 					else
 					{
-						cout << "\n\n\n\tItem name: " << stock.getItem(index).getItemName() << endl;
-						cout << "\tItem code: " << stock.getItem(index).getItemCode() << endl;
-						cout << "\tItem quantity: " << stock.getItem(index).getQuantity() << endl;
-						cout << "\tItem price: " << stock.getItem(index).getPrice() << endl;
-						cout << "\tTotal price: " << stock.getItem(index).getTotalPrice() << endl;
+						//display the item details in the center of the console screen using gotoxy function
+						stock.gotoXY(50, 6);
+						cout << "\u001b[32mITEM NAME:     \u001b[0m " << stock.getItem(index).getItemName() << endl;
+						stock.gotoXY(50, 7);
+						cout << "\u001b[32mITEM CODE:     \u001b[0m " << stock.getItem(index).getItemCode() << endl;
+						stock.gotoXY(50, 8);
+						cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << stock.getItem(index).getQuantity() << endl;
+						stock.gotoXY(50, 9);
+						cout << "\u001b[32mITEM PRICE:    \u001b[0m " << stock.getItem(index).getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
+
 					}
 
 					pauseAndClear();
@@ -333,16 +344,16 @@ void Admin::adminAccess()
 					cin >> choice;
 					cin.ignore();
 				}
-
-				pauseAndClear();
-				cin.clear();
+				//cin.clear();
 				cin.ignore(1000, '\n');
+				pauseAndClear();
+
 			}
 			break;
 		}//end of case 4
 
 
-		case 5://search
+		case 5://remove
 		{
 			if (stock.getSize() == 0)
 			{
@@ -356,6 +367,8 @@ void Admin::adminAccess()
 
 				while (choice == 'y' || choice == 'Y')
 				{
+					stock.printStock();
+					pauseAndClear();
 					if (stock.getSize() != 0)
 					{
 						count++;
@@ -363,7 +376,7 @@ void Admin::adminAccess()
 						cout << "\n\n\tEnter item code: ";
 						getline(cin, itemCode);
 						stock.removeItem(itemCode);
-						cout << "\n\n\t\u001b[32mStock of Item removed successfully.\u001b[0m" << endl;
+						cout << "\n\n\t\u001b[32mStock of Item removed successfully against\u001b[0m" << " \u001b[33mcode " << itemCode << ".\u001b[0m" << endl;
 						cout << endl;
 					}
 

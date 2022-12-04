@@ -10,15 +10,20 @@ using namespace std;
 
 class Purchase
 {
-	Item* PurchaseItemArray;
+	Item* PurchaseItem;
 	int purchaseSize;
+	int currentSize;
+	void resize();
 public:
 	Purchase();
 	Purchase(const Purchase&);
 	const Purchase& operator=(const Purchase&);
 	Purchase(Item*, int);
 	int getPurchaseSize() const;
+	int getCurrentSize() const;
 	int getNumberOfPurchasedItems();
+	void setIndex(int);
+	int getIndex() const;
 	Item* getPurchaseItemArray() const;
 	~Purchase();
 	
@@ -26,6 +31,7 @@ public:
 	void addPurshase(Stock&);
 	bool updatePurchasedItem(string, Stock&);
 	bool deletePurchasedItem(string, Stock&);
+	int searchPurchasedItem(string name);
 	void displayReceipt();
 	
 	void gotoXY(int, int);

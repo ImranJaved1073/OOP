@@ -136,9 +136,9 @@ void displayMainMenu()
 {
 	SetConsoleTextAttribute(h, 15);
 	cout << "\n\n\t\t\t\t\t\t\t__________________________________________________\n";
-	cout << "\n\t\t\t\t\t\t\t|\t   INVENTORY MANAGEMENT SYSTEM           |\n";
+	cout << "\n\t\t\t\t\t\t\t|\t \u001b[43m   INVENTORY MANAGEMENT SYSTEM  \u001b[0m        |\n";
 	//cout << "\t\t\t\t\t\t\t__________________________________________________
-	cout << "\t\t\t\t\t\t\t|\t             MAIN MENU                   |\n";
+	cout << "\t\t\t\t\t\t\t|\t \u001b[32m            MAIN MENU           \u001b[0m        |\n"; 
 	cout << "\t\t\t\t\t\t\t__________________________________________________\n";
 	cout << "\n\t\t\t\t\t\t\t| 1 - LOGIN AS ADMIN                             |";
 	cout << "\n\t\t\t\t\t\t\t| 2 - LOGIN AS EMPLOYEE                          |";

@@ -154,13 +154,13 @@ void Customer::customerAccess()
 		case 1:
 		{
 			obj.printStock();
-			if (receiptStatus == true)
+			/*if (receiptStatus == true)
 			{
 				cout << "\n\n\n\t\t\u001b[34mReceipt has already generated.\u001b[0m" << endl;
 			}
-			else
-			purchaseItem.addPurshase(obj);
-			
+			else*/
+				purchaseItem.addPurshase(obj);
+
 			pauseAndClear();
 			//purchaseItem.displayReceipt();
 			//customerChoice = 4;
@@ -221,14 +221,14 @@ void Customer::customerAccess()
 		}
 
 		case 4://update purchased item list 
-		{	
+		{
 			if (obj.getSize() != 0)
 			{
 				if (receiptStatus == true)
 				{
 					cout << "\n\n\n\t\t\u001b[34mReceipt has already been generated.\u001b[0m" << endl;
 				}
-				else if (purchaseItem.getNumberOfPurchasedItems() > 0)
+				else if (purchaseItem.getCurrentSize() > 0)
 				{
 					purchaseItem.displayReceipt();
 					string name;
@@ -257,14 +257,14 @@ void Customer::customerAccess()
 				}
 				else
 				{
-					cout << "\n\n\t\t\u001b[34mNo items purchased yet.\u001b[0m" << endl;
+					cout << "\n\n\t\t\t\t\t\t\u001b[35mNO ITEMS PURCHASED YET!!.\u001b[0m\n\n";
 				}
 			}
 			else
 			{
 				cout << "\n\n\t\t\t\t\t\t\u001b[35mSTOCK IS EMPTY!!.\u001b[0m\n\n";
 			}
-			
+
 			pauseAndClear();
 			break;
 		}
@@ -272,7 +272,7 @@ void Customer::customerAccess()
 
 		case 5:
 		{
-			if (purchaseItem.getNumberOfPurchasedItems() > 0)
+			if (purchaseItem.getCurrentSize() > 0)
 			{
 				SetConsoleTextAttribute(c, 10);
 				gotoXY(0, 2);
@@ -285,7 +285,7 @@ void Customer::customerAccess()
 			}
 			else
 			{
-				cout << "\n\n\t\t\u001b[34mNo items purchased yet.\u001b[0m" << endl;
+				cout << "\n\n\t\t\t\t\t\t\u001b[35mNO ITEMS PURCHASED YET!!.\u001b[0m\n\n";
 			}
 			pauseAndClear();
 			break;
@@ -297,7 +297,7 @@ void Customer::customerAccess()
 			{
 				cout << "\n\n\t\t\u001b[34mReceipt is already generated.\u001b[0m" << endl;
 			}
-			else if (purchaseItem.getNumberOfPurchasedItems() > 0 && receiptStatus == false)
+			else if (purchaseItem.getCurrentSize() > 0 && receiptStatus == false)
 			{
 				purchaseItem.displayReceipt();
 				string name;
@@ -307,7 +307,7 @@ void Customer::customerAccess()
 				while (choice == 'y' || choice == 'Y')
 				{
 					cin.ignore();
-					if (purchaseItem.getPurchaseSize() != 0)
+					if (purchaseItem.getCurrentSize() != 0)
 					{
 						do
 						{
@@ -325,6 +325,7 @@ void Customer::customerAccess()
 					else
 					{
 						cout << "\n\t\tNo more items can be removed because now Shoping cart is empty." << endl;
+						pauseAndClear();
 						break;
 					}
 					cout << "\n\t\tDo you want to remove another item? (press y for yes and any other key for no): ";
@@ -333,7 +334,7 @@ void Customer::customerAccess()
 			}
 			else
 			{
-				cout << "\n\n\t\t\u001b[34mNo items purchased yet.\u001b[0m" << endl;
+				cout << "\n\n\t\t\t\t\t\t\u001b[35mNO ITEMS PURCHASED YET!!.\u001b[0m\n\n";
 			}
 			pauseAndClear();
 			break;
