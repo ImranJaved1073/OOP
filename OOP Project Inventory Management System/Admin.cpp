@@ -1,14 +1,14 @@
-
 #include "Admin.h"
 #include <iostream>
 #include <fstream>
 #include <conio.h>
 #include <string>
+#define NOMINMAX
 #include <Windows.h>
 
 using namespace std;
 
-void pauseAndClear()
+void Admin::pauseAndClear()
 {
 	cout << "\n\n\t";
 	system("pause");
@@ -71,6 +71,7 @@ bool Admin::check()
 
 		else
 		{
+			system("cls");
 			SetConsoleTextAttribute(a, 4);
 			cout << "\n\n\t\tWRONG PASSWORD!!" << endl;
 			SetConsoleTextAttribute(a, 15);
@@ -110,9 +111,9 @@ void Admin::changePassword()
 	getline(cin, confirm);
 	while (password != confirm)
 	{
+		system("cls");
 		SetConsoleTextAttribute(a, 4);
 		cout << "\n\t\tPasswords do not match. Please try again!" << endl;
-		pauseAndClear();
 		SetConsoleTextAttribute(a, 15);
 		cout << "\n\n\n\t\tEnter new password: ";
 		getline(cin, password);
@@ -204,6 +205,7 @@ void Admin::adminAccess()
 				getline(cin, itemName);
 				cout << "\n\t\tEnter item code: ";
 				getline(cin, itemCode);
+
 				//QUANTITY
 				cout << "\n\t\tEnter quantity of\u001b[33m " << itemName << "\u001b[0m :";
 				while (quantity < 1)
@@ -213,11 +215,11 @@ void Admin::adminAccess()
 					{
 						cout << "\033[A\33[2K\r";
 						cout << "\t\t\u001b[31mInvalid Quantity.\u001b[0mEnter Valid Quantity of\u001b[33m " << itemName << "\u001b[0m ,must be greater than 0: ";
-						//cout << "\t\tEnter quantity of\u001b[33m " << itemName << "\u001b[0m :";
 						cin.clear();
 						cin.ignore(1000, '\n');
 					}
 				}
+
 				//PRICE
 				cout << "\n\t\tEnter price of\u001b[33m " << itemName << "\u001b[0m :";
 				while (price < 1)
@@ -232,6 +234,7 @@ void Admin::adminAccess()
 						cin.ignore(1000, '\n');
 					}
 				}
+
 				//calling ADD ITEM Member function
 				Item item(itemName, itemCode, quantity, price);
 				stock.addItem(item);
@@ -243,13 +246,12 @@ void Admin::adminAccess()
 				cin >> choice;
 				cin.ignore();
 			}
-
 			cout << "\n\n\t\t\u001b[32m" << count << " Item(s) added successfully.\u001b[0m" << endl;
-			cin.ignore(1000, '\n');
 
+			cin.ignore(1000, '\n');
 			pauseAndClear();
-			//cin.clear();
 			break;
+
 		}//end of case 1
 
 		case 2://update the existing stock
@@ -269,21 +271,20 @@ void Admin::adminAccess()
 				{
 					stock.printStock();
 					pauseAndClear();
+
 					cout << "\n\t\tEnter item code: ";
 					getline(cin, itemCode);
-
 					index = stock.updateItem(itemCode);
 
 					if (index == -1)
-					{
 						cout << "\u001b[31m\n\n\n\t\tThere is no Item with this Item Code.Add it to Stock.\u001b[0m\n";
-					}
+
 					pauseAndClear();
 					cout << "\n\n\n\t\tDo you want to update another item to stock? (press y for yes and any other key for no): ";
 					cin >> choice;
-					cin.ignore();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				}
-				cin.ignore(1000, '\n');
+
 				pauseAndClear();
 				//cin.clear();
 
@@ -326,7 +327,6 @@ void Admin::adminAccess()
 					}
 					else
 					{
-						//display the item details in the center of the console screen using gotoxy function
 						stock.gotoXY(50, 6);
 						cout << "\u001b[32mITEM NAME:     \u001b[0m " << stock.getItem(index).getItemName() << endl;
 						stock.gotoXY(50, 7);
@@ -335,17 +335,16 @@ void Admin::adminAccess()
 						cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << stock.getItem(index).getQuantity() << endl;
 						stock.gotoXY(50, 9);
 						cout << "\u001b[32mITEM PRICE:    \u001b[0m " << stock.getItem(index).getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
-
 					}
 
 					pauseAndClear();
 
 					cout << "\n\n\tDo you want to search another item? (press y for yes and any other key for no): ";
 					cin >> choice;
-					cin.ignore();
+					cin.ignore(1000, '\n');
 				}
 				//cin.clear();
-				cin.ignore(1000, '\n');
+
 				pauseAndClear();
 
 			}
@@ -369,6 +368,7 @@ void Admin::adminAccess()
 				{
 					stock.printStock();
 					pauseAndClear();
+
 					if (stock.getSize() != 0)
 					{
 						count++;
@@ -389,13 +389,13 @@ void Admin::adminAccess()
 					pauseAndClear();
 					cout << "\n\n\tDo you want to remove another item? (press y for yes and any other key for no): ";
 					cin >> choice;
-					cin.ignore();
+					cin.ignore(1000, '\n');
 				}
 				cout << "\n\n\t\t\u001b[32m" << count << " item(s) removed successfully.\u001b[0m" << endl;
 
 				pauseAndClear();
-				cin.clear();
-				cin.ignore(1000, '\n');
+				//cin.clear();
+
 			}
 			break;
 		}

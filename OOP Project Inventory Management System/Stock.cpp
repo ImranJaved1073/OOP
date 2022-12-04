@@ -3,7 +3,10 @@
 #include "Stock.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#define NOMINMAX
 #include <Windows.h>
+#include <limits>
 using namespace std;
 
 HANDLE s = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -169,7 +172,7 @@ void Stock::loadStock()
 
 void Stock::addItem(Item item)
 {
-	if (size == capacity)
+	if (size >= capacity)
 	{
 		resize();
 	}
@@ -235,19 +238,11 @@ int Stock::updateItem(string itemCode)
 	else
 	{
 		//add quantity to the quantity of the item already in the stock
-		int quantity=-1; int choice1;
+		int quantity = -1; int choice1;
 		cout << "\n\n\t\tDo you want to Update the quantity of the item? (y/n): ";
-		char choice;
-		cin >> choice;
+		char choice = getValidChoice();
 		//cin.ignore();
-		while (choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N')
-		{
-			cout << "\033[A\33[2K\r";
-			cout << "\t\t\u001b[31mInvalid input.\u001b[0m Please enter a valid choice(y/n): ";
-			cin.clear();
-			cin.ignore(1000, '\n');
-			cin >> choice;
-		}
+
 		if (choice == 'y' || choice == 'Y')
 		{
 			cout << "\n\t\tEnter the quantity: ";
@@ -258,6 +253,7 @@ int Stock::updateItem(string itemCode)
 				cin.clear();
 				cin.ignore(1000, '\n');
 			}
+			cin.ignore(1000, '\n');
 			cout << "\n\n\t\tDo you want to add or remove quantity of " << items[index].getItemName() << "?\n\n\t\t1. Add\n\t\t2. Remove\n\n\t\tEnter your choice: ";
 			while (!(cin >> choice1) || choice1 < 1 || choice1 > 2)
 			{
@@ -267,26 +263,26 @@ int Stock::updateItem(string itemCode)
 				cin.ignore(1000, '\n');
 			}
 			if (choice1 == 1)
+			{
 				items[index].setQuantity(items[index].getQuantity() + quantity);
+				cout << "\u001b[34m\n\n\t\tThe Quantity of " << getItem(index).getItemName() << " against " << itemCode << " code has been added successfully.\u001b[0m" << endl << endl;
+			}
 			else
-				items[index].setQuantity(items[index].getQuantity() - quantity);
+			{
+				if (items[index].getQuantity() > quantity)
+				{
+					items[index].setQuantity(items[index].getQuantity() - quantity);
+					cout << "\u001b[34m\n\n\t\tThe Quantity of " << getItem(index).getItemName() << " against " << itemCode << " code has been removed successfully.\u001b[0m" << endl << endl;
+				}
+				else
+					cout << "\n\n\t\t\u001b[31mNot enough quantity in stock.\u001b[0m\n\n";
+			}
 			
-			cout << "\u001b[34m\n\n\t\tThe Quantity of " << getItem(index).getItemName() << " against " << itemCode << " code has been updated successfully.\u001b[0m" << endl << endl;
 		}
+
 		//update price of the item
 		cout << "\n\n\t\tDo you want to update the price of " << items[index].getItemName() << "? (y/n): ";
-		char choice2;
-		cin.clear();
-		cin.ignore(1000,'\n');
-		cin >> choice2;
-		while (choice2 != 'y' && choice2 != 'Y' && choice2 != 'n' && choice2 != 'N')
-		{
-			cout << "\033[A\33[2K\r";
-			cout << "\t\t\u001b[31mInvalid input.\u001b[0m Please enter a valid choice(y/n): ";
-			cin.clear();
-			cin.ignore(1000, '\n');
-			cin >> choice2;
-		}
+		char choice2 = getValidChoice();
 		if (choice2 == 'y' || choice2 == 'Y')
 		{
 			long double cost;
@@ -296,14 +292,14 @@ int Stock::updateItem(string itemCode)
 				cout << "\033[A\33[2K\r";
 				cout << "\t\t\u001b[31mInvalid input\u001b[0m. Please enter a valid price: ";
 				cin.clear();
-				cin.ignore(1000, '\n');
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
 			items[index].setPrice(cost);
 			items[index].setTotalPrice();
 			cout << "\u001b[34m\n\n\t\tThe Price of " << getItem(index).getItemName() << " against " << itemCode << " code has been updated successfully.\u001b[0m" << endl << endl;
 		}
-		
-		
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		return index;
 	}
 }
@@ -413,5 +409,19 @@ void Stock::printStock()
 		SetConsoleTextAttribute(s, 7);
 	}
 
+}
 
+char Stock::getValidChoice()
+{
+	char choice;
+	cin >> choice;
+	while (choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N')
+	{
+		cout << "\033[A\33[2K\r";
+		cout << "\t\t\u001b[31mInvalid input.\u001b[0m Please enter a valid choice(y/n): ";
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cin >> choice;
+	}
+	return choice;
 }

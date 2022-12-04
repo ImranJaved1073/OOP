@@ -45,6 +45,7 @@ public:
 	void printStock();
 
 	void gotoXY(int, int);
+	char getValidChoice();
 
 	Stock operator=(const Stock& stock);
 

@@ -46,9 +46,7 @@ int main()
 				SetConsoleTextAttribute(h, 15);
 				cout << "\t\t------------------------------------\n";
 
-				cout << "\n\n\t";
-				system("pause");
-				system("cls");
+				admin.pauseAndClear();
 				admin.adminAccess();
 			}
 			else
@@ -62,9 +60,7 @@ int main()
 				SetConsoleTextAttribute(h, 15);
 				cout << "\n\t----------------------------------------------\n";
 			}
-			cout << "\n\n\t";
-			system("pause");
-			system("cls");
+			//admin.pauseAndClear();
 			break;
 		}
 
@@ -82,9 +78,7 @@ int main()
 				cout << "\n\t         LOGIN SUCCESSFUL\n";
 				SetConsoleTextAttribute(h, 15);
 				cout << "\n\t------------------------------------\n";
-				cout << "\n\n\t";
-				system("pause");
-				system("cls");
+				employee.pauseAndClear();
 				employee.employeeAccess();
 			//}
 			/*else
@@ -97,9 +91,7 @@ int main()
 				cout << "\n\n\t------------------------------------\n";
 
 			//}
-			cout << "\n\n\t";
-			system("pause");
-			system("cls");
+				//employee.pauseAndClear();
 			break;
 
 		}

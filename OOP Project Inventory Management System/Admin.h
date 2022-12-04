@@ -26,6 +26,7 @@ public:
 	void displayAdminMenu();
 	int getAdminChoice();
 	void adminAccess();
+	void pauseAndClear();
 
 };
 

@@ -112,6 +112,7 @@ void Employee::changePasswordEmployee()//change password for employee
 
 	while (password != confirm)
 	{
+		system("cls");
 		SetConsoleTextAttribute(e, 4);
 		cout << "\n\t\tPasswords do not match. Please try again!" << endl;
 		SetConsoleTextAttribute(e, 15);
@@ -197,6 +198,8 @@ void Employee::employeeAccess()
 				while (choice == 'y' || choice == 'Y')
 				{
 					//cin.ignore();
+					object.printStock();
+					pauseAndClear();
 					cout << "\n\n\n\t\tEnter item code: ";
 					getline(cin, itemCode);
 
@@ -208,14 +211,12 @@ void Employee::employeeAccess()
 
 					pauseAndClear();
 					cout << "\n\n\t\tDo you want to update another item from stock? (press y for yes and any other key for no): ";
-					/*cin.clear();
-					cin.ignore(1000, '\n');*/
 					cin >> choice;
-					cin.ignore();
+					cin.ignore(1000, '\n');
 				}
 				pauseAndClear();
-				cin.clear();
-				cin.ignore(1000, '\n');
+				//cin.clear();
+				
 			}
 			
 			break;
@@ -252,20 +253,25 @@ void Employee::employeeAccess()
 					}
 					else
 					{
-						cout << "\n\n\n\tItem name: " << object.getItem(index).getItemName() << endl;
-						cout << "\tItem code: " << object.getItem(index).getItemCode() << endl;
-						cout << "\tItem quantity: " << object.getItem(index).getQuantity() << endl;
-						cout << "\tItem price: " << object.getItem(index).getPrice() << endl;
-						cout << "\tItem total price: " << object.getItem(index).getTotalPrice() << endl;
+						object.gotoXY(50, 6);
+						cout << "\u001b[32mITEM NAME:     \u001b[0m " << object.getItem(index).getItemName() << endl;
+						object.gotoXY(50, 7);
+						cout << "\u001b[32mITEM CODE:     \u001b[0m " << object.getItem(index).getItemCode() << endl;
+						object.gotoXY(50, 8);
+						cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << object.getItem(index).getQuantity() << endl;
+						object.gotoXY(50, 9);
+						cout << "\u001b[32mITEM PRICE:    \u001b[0m " << object.getItem(index).getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
 					}
 					pauseAndClear();
 					cout << "\n\n\tDo you want to search another item? (press y for yes and any other key for no): ";
 					cin >> choice;
-					cin.ignore();
+					//cin.clear();
+					cin.ignore(1000, '\n');
 				}
+				/*cin.clear();
+				cin.ignore(1000, '\n');*/
 				pauseAndClear();
-				cin.clear();
-				cin.ignore(1000, '\n');
+				
 			}
 			break;
 		}
