@@ -71,6 +71,7 @@ bool Employee::check() // checks for validity of passwords thrice if passwaords 
 
 		else
 		{
+			system("cls");
 			SetConsoleTextAttribute(e, 4);
 			cout << "\n\n\t\tWRONG PASSWORD!!" << endl;
 			SetConsoleTextAttribute(e, 15);

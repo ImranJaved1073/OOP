@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include "Purchase.h"
+#define NOMINMAX
 #include <Windows.h>
 
 using namespace std;
@@ -95,20 +96,20 @@ Item* Purchase::getPurchaseItemArray() const
 	return PurchaseItem;
 }
 
-int Purchase::getNumberOfPurchasedItems()
-{
-	return purchaseSize;
-}
+//int Purchase::getNumberOfPurchasedItems()
+//{
+//	return purchaseSize;
+//}
 
 void Purchase::setIndex(int i)
 {
 	currentSize = i;
 }
 
-int Purchase::getIndex() const
-{
-	return currentSize;
-}
+//int Purchase::getIndex() const
+//{
+//	return currentSize;
+//}
 
 Purchase::~Purchase()
 {
@@ -191,60 +192,63 @@ void Purchase::addPurshase(Stock& obj)
 	{
 		char choice;
 		int  CustomerQuantity = -1;
-		int indextemp;
+		int indextemp=-1;
 		string itemName;
 
 
 		do {
 			//cin.ignore();
 			//string itemCode; int quantity;
-			do
+			obj.printStock();
+			cout << "\n\n\t\tEnter item Name: ";
+
+			getline(cin, itemName);
+
+			indextemp = obj.searchItemName(itemName);
+
+			while (indextemp == -1)
 			{
-				cout << "\n\n\t\tEnter item Name: ";
-
+				cout << "\033[A\33[2K\r";
+				cout << "\u001b[31m\t\tItem not found!!\u001b[0mEnter valid item name: ";
 				getline(cin, itemName);
-				//search for the item in the purchase list and if it exists then do not add it again
-				if (searchPurchasedItem(itemName) != -1)
-				{
-					cout << "\n\n\t\tItem already exists in the purchase list";
-					break;
-				}
-
 				indextemp = obj.searchItemName(itemName);
+			}
 
-				if (indextemp == -1)
+			//search for the item in the purchase list and if it exists then do not add it again
+			if (searchPurchasedItem(itemName) != -1)
+			{
+				cout << "\n\n\t\tItem already exists in the purchase list";
+			}
+
+			else
+			{
+				cout << "\n\t\tHow much quantity of \u001b[33m" << itemName << "\u001b[0m do you want to purchase? ";
+				cin >> CustomerQuantity;
+
+				while (obj.getItem(indextemp).getQuantity() < CustomerQuantity)
 				{
-					cout << "\u001b[31m\n\n\t\tItem not found!!\nEnter valid item name\u001b[0m" << endl;
-				}
-				else
-				{
-					cout << "\n\t\tHow much quantity of \u001b[33m" << itemName << "\u001b[0m do you want to purchase? ";
+					cout << "\n\n\t\t\u001b[33mSorry, we don't have enough quantity of \u001b[34m" << itemName << "\u001b[33m. We only have \u001b[34m";
+					cout << obj.getItem(indextemp).getQuantity() << "\u001b[33m " << itemName << endl;
+
+					cout << "\u001b[0m\n\t\tPlease enter quantity less than or equal to " << obj.getItem(indextemp).getQuantity() << endl;
+
+					cout << "\n\t\tHow many \u001b[33m" << itemName << "\u001b[0m do you want to purchase? ";
 					cin >> CustomerQuantity;
-
-					while (obj.getItem(indextemp).getQuantity() < CustomerQuantity)
-					{
-						cout << "\n\n\t\t\u001b[33mSorry, we don't have enough quantity of \u001b[34m" << itemName << "\u001b[33m. We only have \u001b[34m";
-						cout << obj.getItem(indextemp).getQuantity() << "\u001b[33m " << itemName << endl;
-
-						cout << "\u001b[0m\n\t\tPlease enter quantity less than or equal to " << obj.getItem(indextemp).getQuantity() << endl;
-
-						cout << "\n\t\tHow many \u001b[33m" << itemName << "\u001b[0m do you want to purchase? ";
-						cin >> CustomerQuantity;
-					}
-					//cout << currentSize;
-					PurchaseItem[currentSize] = obj.getItem(indextemp);
-					PurchaseItem[currentSize].setQuantity(CustomerQuantity);
-					PurchaseItem[currentSize].setTotalPrice();
-					obj.updateItem(CustomerQuantity, itemName);
-					currentSize++;
-					if (currentSize >= purchaseSize)
-						resize();
 				}
-				cout << endl;
-			} while (indextemp == -1);
+				//cout << currentSize;
+				PurchaseItem[currentSize] = obj.getItem(indextemp);
+				PurchaseItem[currentSize].setQuantity(CustomerQuantity);
+				PurchaseItem[currentSize].setTotalPrice();
+				obj.updateItem(CustomerQuantity, itemName);
+				currentSize++;
+				if (currentSize >= purchaseSize)
+					resize();
+			}
+
+			pauseAndClear();
 			cout << "Do you want to purchase another item? (y/n): ";
 			cin >> choice;
-			cin.ignore();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		} while (choice == 'y' || choice == 'Y');
 		pauseAndClear();
 	}
@@ -279,7 +283,7 @@ bool Purchase::updatePurchasedItem(string name, Stock& obj)
 	{
 		return false;
 	}
-	pauseAndClear();
+	//pauseAndClear();
 }
 
 
@@ -315,43 +319,6 @@ bool Purchase::deletePurchasedItem(string name, Stock& obj)
 	}
 	
 	pauseAndClear();
-
-	/*bool flag = false;
-	int index;
-	int tempQuantity = 0;
-	for (int i = 0; i < purchaseSize && flag == false; i++)
-	{
-		if (name == PurchaseItem[i].getItemName())
-		{
-			index = i;
-			flag = true;
-		}
-	}
-
-	if (flag)
-	{
-		string name = PurchaseItem[index].getItemName();
-		tempQuantity = PurchaseItem[index].getQuantity();
-		tempQuantity *= -1;
-		Item* tempItems = new Item[purchaseSize - 1];
-		for (int i = 0, j = -1; i < purchaseSize; i++)
-		{
-			if (index != i)
-			{
-				++j;
-				tempItems[j] = PurchaseItem[i];
-			}
-		}
-		setItemPurshased(tempItems, purchaseSize - 1);
-		obj.updateItem(tempQuantity, name);
-		cout << "\n\n\t\t\u001b[33m" << name << " \u001b[32mhas been succesfully deleted from purchased list!!\u001b[0m\n";
-
-		return flag;
-	}
-	else
-	{
-		return flag;
-	}*/
 	
 }
 
@@ -403,7 +370,7 @@ void Purchase::displayReceipt()
 	for (int i = 0; i < currentSize; i++)
 	{
 		gotoXY(0, 8 + i);
-		cout << PurchaseItem[i].getItemCode();
+		cout << i + 1;
 		gotoXY(22, 8 + i);
 		cout << "|" << PurchaseItem[i].getItemName();
 		gotoXY(44, 8 + i);

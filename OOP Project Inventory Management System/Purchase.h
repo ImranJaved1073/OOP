@@ -21,9 +21,9 @@ public:
 	Purchase(Item*, int);
 	int getPurchaseSize() const;
 	int getCurrentSize() const;
-	int getNumberOfPurchasedItems();
+	//int getNumberOfPurchasedItems();
 	void setIndex(int);
-	int getIndex() const;
+	/*int getIndex() const;*/
 	Item* getPurchaseItemArray() const;
 	~Purchase();
 	

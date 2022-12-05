@@ -114,7 +114,7 @@ void Customer::saveReceipt()
 	fout << "-------------------------------------------------------------------------------------------";
 	fout << "\nITEM NAME\t\tSINGLE ITEM PRICE\t\tITEM QUANTITY\t\tTOTAL PRICE\n";
 	fout << "-------------------------------------------------------------------------------------------\n";
-	for (int i = 0; i < purchaseItem.getPurchaseSize(); i++)
+	for (int i = 0; i < purchaseItem.getCurrentSize(); i++)
 	{
 		fout << purchaseItem.getPurchaseItemArray()[i].getItemName() << "\t\t\t\t" << purchaseItem.getPurchaseItemArray()[i].getPrice() << "\t\t\t\t" << purchaseItem.getPurchaseItemArray()[i].getQuantity() << "\t\t   " << purchaseItem.getPurchaseItemArray()[i].getTotalPrice() << endl;
 		totalBill += purchaseItem.getPurchaseItemArray()[i].getTotalPrice();
@@ -159,9 +159,10 @@ void Customer::customerAccess()
 				cout << "\n\n\n\t\t\u001b[34mReceipt has already generated.\u001b[0m" << endl;
 			}
 			else*/
-				purchaseItem.addPurshase(obj);
+			receiptStatus = false;
+			purchaseItem.addPurshase(obj);
 
-			pauseAndClear();
+			//pauseAndClear();
 			//purchaseItem.displayReceipt();
 			//customerChoice = 4;
 			/*cout << "Press Enter to continue...";
@@ -230,7 +231,7 @@ void Customer::customerAccess()
 				}
 				else if (purchaseItem.getCurrentSize() > 0)
 				{
-					purchaseItem.displayReceipt();
+					
 					string name;
 
 					bool flag = true;
@@ -244,6 +245,8 @@ void Customer::customerAccess()
 								cout << "\n\n\t\t\u001b[31mThe Item name you entered did not match to any item!!\u001b[0m\n";
 								cout << "\n\t\tPlease enter correct Item name.\n";
 							}
+							purchaseItem.displayReceipt();
+							//pauseAndClear();
 							cout << "\n\t\tEnter the name of item: ";
 							getline(cin, name);
 							flag = purchaseItem.updatePurchasedItem(name, obj);
@@ -287,6 +290,7 @@ void Customer::customerAccess()
 			{
 				cout << "\n\n\t\t\t\t\t\t\u001b[35mNO ITEMS PURCHASED YET!!.\u001b[0m\n\n";
 			}
+			//saveReceipt();
 			pauseAndClear();
 			break;
 		}
