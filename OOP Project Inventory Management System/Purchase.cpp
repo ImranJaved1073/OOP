@@ -131,63 +131,7 @@ void Purchase::setItemPurshased(Item* arr, int s)
 }
 
 void Purchase::addPurshase(Stock& obj)
-{
-	//obj.loadStock();
-	//char choice;
-	//string name;
-	//int quantity; bool flag = 1;
-	//int indexOfPurchase = -1;
-
-	//do {
-	//	cout << index;
-	//	cout << "\n\n\tEnter the name of the item you want to purchase: ";
-	//	getline(cin, name);
-	//	cout << name;
-	//	//if item already exists in the purchase list then do not add it again
-	//	for (int i = 0; i < index; i++)
-	//	{
-	//		if (PurchaseItem[i].getItemName() == name)
-	//		{
-	//			cout << "\n\n\tItem already exists in the purchase list";
-	//			flag = 0;
-	//			indexOfPurchase = i;
-	//			break;
-	//		}
-	//	}
-	//	indexOfPurchase = obj.searchItemName(name);
-	//	if (indexOfPurchase == -1)
-	//	{
-	//		cout << "\n\n\tSorry, we don't have the item you want to purchase!";
-	//	}
-	//	else
-	//	{
-	//		cout << "\n\n\tEnter the quantity of the item you want to purchase: ";
-	//		cin >> quantity;
-	//		if (obj.getItem(indexOfPurchase).getQuantity() >= quantity)
-	//		{
-	//			PurchaseItem[index] = obj.getItem(index);
-	//			PurchaseItem[index].setQuantity(quantity);
-	//			PurchaseItem[index].setTotalPrice();
-	//			//obj.getItem(indexOfPurchase).setQuantity(obj.getItem(indexOfPurchase).getQuantity() - quantity);
-	//			obj.updateItem(quantity, name);
-	//			index++;
-	//			if (index >= purchaseSize)
-	//				resize();
-	//			cout << "\n\n\tItem purchased successfully!";
-	//		}
-	//		else
-	//		{
-	//			cout << "\n\n\tSorry, we don't have enough quantity of the item you want to purchase!";
-	//		}
-	//	}
-
-	//	pauseAndClear();
-	//	cout << "Do you want to purchase another item? (y/n): ";
-	//	cin >> choice;
-	//	cin.ignore();
-	//} while (choice == 'y' || choice == 'Y');
-	//pauseAndClear();
-	
+{	
 	if (obj.getSize() != 0)
 	{
 		char choice;
