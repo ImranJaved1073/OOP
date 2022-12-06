@@ -6,11 +6,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-//#include <conio.h>
-//#include <windows.h>
 
 using namespace std;
-//HANDLE e = GetStdHandle(STD_OUTPUT_HANDLE);
 
 class Employee :public User
 {

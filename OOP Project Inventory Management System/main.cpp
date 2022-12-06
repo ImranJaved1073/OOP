@@ -25,7 +25,7 @@ int main()
 	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 	Stock stock;
 	displayIntro();
-	
+
 	//stock.loadStock();
 	int choice;
 	string username, password;
@@ -63,7 +63,7 @@ int main()
 				cout << "\n\t----------------------------------------------\n";
 				admin.pauseAndClear();
 			}
-			
+
 			break;
 		}
 
@@ -94,7 +94,7 @@ int main()
 				cout << "\t------------------------------------\n";
 				employee.pauseAndClear();
 			}
-			
+
 			break;
 
 		}
@@ -133,7 +133,7 @@ void displayMainMenu()
 	cout << "\n\n\t\t\t\t\t\t\t__________________________________________________\n";
 	cout << "\n\t\t\t\t\t\t\t|\t \u001b[43m   INVENTORY MANAGEMENT SYSTEM  \u001b[0m        |\n";
 	//cout << "\t\t\t\t\t\t\t__________________________________________________
-	cout << "\t\t\t\t\t\t\t|\t \u001b[32m            MAIN MENU           \u001b[0m        |\n"; 
+	cout << "\t\t\t\t\t\t\t|\t \u001b[32m            MAIN MENU           \u001b[0m        |\n";
 	cout << "\t\t\t\t\t\t\t__________________________________________________\n";
 	cout << "\n\t\t\t\t\t\t\t| 1 - LOGIN AS ADMIN                             |";
 	cout << "\n\t\t\t\t\t\t\t| 2 - LOGIN AS EMPLOYEE                          |";

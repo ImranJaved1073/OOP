@@ -191,7 +191,6 @@ void Stock::addItem(Item item)
 
 void Stock::removeItem(string itemCode)
 {
-	//cin.ignore();
 	int index = -1;
 	for (int i = 0; i < size; i++)
 	{
@@ -277,7 +276,7 @@ int Stock::updateItem(string itemCode)
 				else
 					cout << "\n\n\t\t\u001b[31mNot enough quantity in stock.\u001b[0m\n\n";
 			}
-			
+
 		}
 
 		//update price of the item
@@ -360,7 +359,7 @@ int Stock::searchItemName(string itemName)
 
 void Stock::gotoXY(int x, int y)
 {
-	COORD coord;
+	COORD coord{};
 	coord.X = x;
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
@@ -378,7 +377,7 @@ void Stock::printStock()
 		gotoXY(25, 5);
 		cout << "\u001b[43m------------------------------------------------------------------------------------------------------------\u001b[0m" << endl;
 		gotoXY(25, 6);
-		cout << "|\u001b[32m	ITEM #\u001b[0m"; 
+		cout << "|\u001b[32m	ITEM #\u001b[0m";
 		gotoXY(47, 6);
 		cout << "      \u001b[32mITEM NAME\u001b[0m";
 		gotoXY(69, 6);

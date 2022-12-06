@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include "Purchase.h"
+#define NOMINMAX
 #include <windows.h>
 #include "Customer.h"
 
@@ -56,7 +57,6 @@ void Customer::displayCustomerMenu()
 	SetConsoleTextAttribute(c, 14);
 	cout << "\n\n\t\t\t\t\t\t_________________________________________________________________\n";
 	cout << "\n\t\t\t\t\t\t\t           INVENTORY MANAGEMENT SYSTEM\n";
-	//cout << "\t\t\t\t\t\t_________________________________________________________________\n";
 	cout << "\t\t\t\t\t\t\t                  CUSTOMER MENU\n";
 	cout << "\t\t\t\t\t\t_________________________________________________________________\n";
 	cout << "\n\t\t\t\t\t\t 1 - PURCHASE ITEM(s) FROM STOCK";
@@ -154,20 +154,9 @@ void Customer::customerAccess()
 		case 1:
 		{
 			obj.printStock();
-			/*if (receiptStatus == true)
-			{
-				cout << "\n\n\n\t\t\u001b[34mReceipt has already generated.\u001b[0m" << endl;
-			}
-			else*/
 			receiptStatus = false;
 			purchaseItem.addPurshase(obj);
 
-			//pauseAndClear();
-			//purchaseItem.displayReceipt();
-			//customerChoice = 4;
-			/*cout << "Press Enter to continue...";
-			cin.get();
-			system("cls");*/
 			break;
 		}
 
@@ -210,12 +199,7 @@ void Customer::customerAccess()
 					cin.ignore();
 				}
 			}
-			else
-			{
-				cout << "\n\n\t\t\t\t\t\t\u001b[35mSTOCK IS EMPTY!!.\u001b[0m\n\n";
-			}
 			pauseAndClear();
-			//cin.clear();
 			cin.ignore(1000, '\n');
 
 			break;
@@ -231,7 +215,7 @@ void Customer::customerAccess()
 				}
 				else if (purchaseItem.getCurrentSize() > 0)
 				{
-					
+
 					string name;
 
 					bool flag = true;
@@ -262,10 +246,6 @@ void Customer::customerAccess()
 				{
 					cout << "\n\n\t\t\t\t\t\t\u001b[35mNO ITEMS PURCHASED YET!!.\u001b[0m\n\n";
 				}
-			}
-			else
-			{
-				cout << "\n\n\t\t\t\t\t\t\u001b[35mSTOCK IS EMPTY!!.\u001b[0m\n\n";
 			}
 
 			pauseAndClear();
@@ -310,7 +290,6 @@ void Customer::customerAccess()
 				bool flag = true;
 				while (choice == 'y' || choice == 'Y')
 				{
-					cin.ignore();
 					if (purchaseItem.getCurrentSize() != 0)
 					{
 						do
@@ -334,6 +313,7 @@ void Customer::customerAccess()
 					}
 					cout << "\n\t\tDo you want to remove another item? (press y for yes and any other key for no): ";
 					cin >> choice;
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				}
 			}
 			else
@@ -350,7 +330,6 @@ void Customer::customerAccess()
 			saveReceipt();
 			break;
 		}
-
 
 		}//switch
 	} while (customerChoice != 7);

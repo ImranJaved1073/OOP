@@ -5,7 +5,6 @@
 #include "Stock.h"
 #include <iostream>
 #include <fstream>
-//#include <Windows.h>
 using namespace std;
 
 class Purchase
@@ -21,19 +20,17 @@ public:
 	Purchase(Item*, int);
 	int getPurchaseSize() const;
 	int getCurrentSize() const;
-	//int getNumberOfPurchasedItems();
 	void setIndex(int);
-	/*int getIndex() const;*/
 	Item* getPurchaseItemArray() const;
 	~Purchase();
-	
+
 	void setItemPurshased(Item*, int);
 	void addPurshase(Stock&);
 	bool updatePurchasedItem(string, Stock&);
 	bool deletePurchasedItem(string, Stock&);
 	int searchPurchasedItem(string name);
 	void displayReceipt();
-	
+
 	void gotoXY(int, int);
 
 	void pauseAndClear();

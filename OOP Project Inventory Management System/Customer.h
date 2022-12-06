@@ -6,10 +6,8 @@
 #include "User.h"
 #include "Stock.h"
 #include "Purchase.h"
-//#include <windows.h>
 
 using namespace std;
-//HANDLE c = GetStdHandle(STD_OUTPUT_HANDLE);
 
 class Customer : public User
 {

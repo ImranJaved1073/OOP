@@ -26,9 +26,9 @@ Admin::Admin()
 bool Admin::check()
 {
 	int count = 3;
-	string password,line;
+	string password, line;
 	bool flag = true;
-	
+
 	ifstream fin;
 	fin.open("password.txt");
 	if (fin)
@@ -36,12 +36,9 @@ bool Admin::check()
 		getline(fin, line);
 		password = line;
 	}
-	
-	else
-		cout << "\n\n\t \u001b[31mFile not found!! \u001b[0m" << endl;
 	fin.close();
 
-	while (count!=0 && flag)
+	while (count != 0 && flag)
 	{
 		cout << "\n\t\tEnter password: ";
 		char ch;
@@ -98,14 +95,11 @@ void Admin::changePassword()
 		getline(fin, line);
 		empPassword = line;
 	}
-	else
-		cout << "\n\n\t \u001b[31mFile not found!! \u001b[0m" << endl;
 	fin.close();
 
 
-	string password,confirm;
+	string password, confirm;
 	cout << "\n\n\n\t\tEnter new password: ";
-	//cin.ignore();
 	getline(cin, password);
 	cout << "\n\t\tConfirm New Password: ";
 	getline(cin, confirm);
@@ -229,7 +223,6 @@ void Admin::adminAccess()
 					{
 						cout << "\033[A\33[2K\r";
 						cout << "\u001b[31m\t\tValid Price of " << itemName << " must be more than 0. Please Enter again: \u001b[0m";
-						//cout << "\n\t\tEnter price of\u001b[33m " << itemName << "\u001b[0m :";
 						cin.clear();
 						cin.ignore(1000, '\n');
 					}
@@ -284,9 +277,7 @@ void Admin::adminAccess()
 					cin >> choice;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				}
-
 				pauseAndClear();
-				//cin.clear();
 
 			}
 			break;
@@ -343,8 +334,6 @@ void Admin::adminAccess()
 					cin >> choice;
 					cin.ignore(1000, '\n');
 				}
-				//cin.clear();
-
 				pauseAndClear();
 
 			}
@@ -394,8 +383,6 @@ void Admin::adminAccess()
 				cout << "\n\n\t\t\u001b[32m" << count << " item(s) removed successfully.\u001b[0m" << endl;
 
 				pauseAndClear();
-				//cin.clear();
-
 			}
 			break;
 		}

@@ -96,20 +96,10 @@ Item* Purchase::getPurchaseItemArray() const
 	return PurchaseItem;
 }
 
-//int Purchase::getNumberOfPurchasedItems()
-//{
-//	return purchaseSize;
-//}
-
 void Purchase::setIndex(int i)
 {
 	currentSize = i;
 }
-
-//int Purchase::getIndex() const
-//{
-//	return currentSize;
-//}
 
 Purchase::~Purchase()
 {
@@ -132,67 +122,11 @@ void Purchase::setItemPurshased(Item* arr, int s)
 
 void Purchase::addPurshase(Stock& obj)
 {
-	//obj.loadStock();
-	//char choice;
-	//string name;
-	//int quantity; bool flag = 1;
-	//int indexOfPurchase = -1;
-
-	//do {
-	//	cout << index;
-	//	cout << "\n\n\tEnter the name of the item you want to purchase: ";
-	//	getline(cin, name);
-	//	cout << name;
-	//	//if item already exists in the purchase list then do not add it again
-	//	for (int i = 0; i < index; i++)
-	//	{
-	//		if (PurchaseItem[i].getItemName() == name)
-	//		{
-	//			cout << "\n\n\tItem already exists in the purchase list";
-	//			flag = 0;
-	//			indexOfPurchase = i;
-	//			break;
-	//		}
-	//	}
-	//	indexOfPurchase = obj.searchItemName(name);
-	//	if (indexOfPurchase == -1)
-	//	{
-	//		cout << "\n\n\tSorry, we don't have the item you want to purchase!";
-	//	}
-	//	else
-	//	{
-	//		cout << "\n\n\tEnter the quantity of the item you want to purchase: ";
-	//		cin >> quantity;
-	//		if (obj.getItem(indexOfPurchase).getQuantity() >= quantity)
-	//		{
-	//			PurchaseItem[index] = obj.getItem(index);
-	//			PurchaseItem[index].setQuantity(quantity);
-	//			PurchaseItem[index].setTotalPrice();
-	//			//obj.getItem(indexOfPurchase).setQuantity(obj.getItem(indexOfPurchase).getQuantity() - quantity);
-	//			obj.updateItem(quantity, name);
-	//			index++;
-	//			if (index >= purchaseSize)
-	//				resize();
-	//			cout << "\n\n\tItem purchased successfully!";
-	//		}
-	//		else
-	//		{
-	//			cout << "\n\n\tSorry, we don't have enough quantity of the item you want to purchase!";
-	//		}
-	//	}
-
-	//	pauseAndClear();
-	//	cout << "Do you want to purchase another item? (y/n): ";
-	//	cin >> choice;
-	//	cin.ignore();
-	//} while (choice == 'y' || choice == 'Y');
-	//pauseAndClear();
-	
 	if (obj.getSize() != 0)
 	{
 		char choice;
 		int  CustomerQuantity = -1;
-		int indextemp=-1;
+		int indextemp = -1;
 		string itemName;
 
 
@@ -235,7 +169,6 @@ void Purchase::addPurshase(Stock& obj)
 					cout << "\n\t\tHow many \u001b[33m" << itemName << "\u001b[0m do you want to purchase? ";
 					cin >> CustomerQuantity;
 				}
-				//cout << currentSize;
 				PurchaseItem[currentSize] = obj.getItem(indextemp);
 				PurchaseItem[currentSize].setQuantity(CustomerQuantity);
 				PurchaseItem[currentSize].setTotalPrice();
@@ -244,11 +177,12 @@ void Purchase::addPurshase(Stock& obj)
 				if (currentSize >= purchaseSize)
 					resize();
 			}
-
 			pauseAndClear();
+			
 			cout << "Do you want to purchase another item? (y/n): ";
 			cin >> choice;
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			
 		} while (choice == 'y' || choice == 'Y');
 		pauseAndClear();
 	}
@@ -260,8 +194,12 @@ bool Purchase::updatePurchasedItem(string name, Stock& obj)
 	int indexStockItem;
 	int flag = searchPurchasedItem(name);
 	int q = 0;
+
 	if (flag != -1)
 	{
+		q = -PurchaseItem[flag].getQuantity();
+		obj.updateItem(q, PurchaseItem[flag].getItemName());
+
 		indexStockItem = obj.searchItem(PurchaseItem[flag].getItemCode());
 		int quantity;
 		do
@@ -270,13 +208,11 @@ bool Purchase::updatePurchasedItem(string name, Stock& obj)
 			cin >> quantity;
 
 		} while (quantity > obj.getItem(indexStockItem).getQuantity());
-
-		q = PurchaseItem[flag].getQuantity();
+		
 		PurchaseItem[flag].setQuantity(quantity);
 		PurchaseItem[flag].setTotalPrice();
-		quantity -= q;
-
 		obj.updateItem(quantity, PurchaseItem[flag].getItemName());
+		
 		return true;
 	}
 	else
@@ -296,14 +232,13 @@ bool Purchase::deletePurchasedItem(string name, Stock& obj)
 		int q = 1;
 		if (flag != -1)
 		{
-			string name = PurchaseItem[flag].getItemName();
-			q *= -(PurchaseItem[flag].getQuantity());
+			obj.updateItem(-PurchaseItem[flag].getQuantity(), name);
+		
 			for (int i = flag; i < purchaseSize - 1; i++)
 			{
 				PurchaseItem[i] = PurchaseItem[i + 1];
 			}
 			currentSize--;
-			obj.updateItem(q, name);
 			cout << "\n\n\t\t\u001b[33m" << name << " \u001b[32mhas been succesfully deleted from purchased list!!\u001b[0m\n";
 			return true;
 		}
@@ -317,9 +252,9 @@ bool Purchase::deletePurchasedItem(string name, Stock& obj)
 		cout << "\n\n\t\t\u001b[31mNo items in the purchased list!!\u001b[0m\n";
 		return false;
 	}
-	
+
 	pauseAndClear();
-	
+
 }
 
 int Purchase::searchPurchasedItem(string name)

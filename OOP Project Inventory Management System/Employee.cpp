@@ -37,8 +37,6 @@ bool Employee::check() // checks for validity of passwords thrice if passwaords 
 		getline(fin, line);
 		password = line;
 	}
-	else
-		cout << "\n\n\t \u001b[31mFile not found!! \u001b[0m" << endl;
 	fin.close();
 
 	while (count != 0 && status)
@@ -99,9 +97,6 @@ void Employee::changePasswordEmployee()//change password for employee
 		getline(fin, line);
 		adminPassword = line;
 	}
-	else
-		cout << "\n\n\t \u001b[31mFile not found!! \u001b[0m" << endl;
-	fin.close();
 
 	string password, confirm;
 
@@ -217,9 +212,9 @@ void Employee::employeeAccess()
 				}
 				pauseAndClear();
 				//cin.clear();
-				
+
 			}
-			
+
 			break;
 		}
 
@@ -269,10 +264,8 @@ void Employee::employeeAccess()
 					//cin.clear();
 					cin.ignore(1000, '\n');
 				}
-				/*cin.clear();
-				cin.ignore(1000, '\n');*/
 				pauseAndClear();
-				
+
 			}
 			break;
 		}
