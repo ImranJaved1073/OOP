@@ -121,8 +121,7 @@ void Purchase::setItemPurshased(Item* arr, int s)
 }
 
 void Purchase::addPurshase(Stock& obj)
-=======
-{	
+{
 	if (obj.getSize() != 0)
 	{
 		char choice;
