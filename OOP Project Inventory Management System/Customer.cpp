@@ -186,11 +186,12 @@ void Customer::customerAccess()
 							cout << "\u001b[31m\n\n\t\tItem not found" << endl << "Please enter correct item Name.\u001b[0m\n";
 						else
 						{
-							cout << "\n\n\tItem name: " << obj.getItem(indexOfItem).getItemName() << endl;
-							cout << "\n\tItem code: " << obj.getItem(indexOfItem).getItemCode() << endl;
-							cout << "\n\tItem quantity: " << obj.getItem(indexOfItem).getQuantity() << endl;
-							cout << "\n\tItem price: " << obj.getItem(indexOfItem).getPrice() << endl;
-							cout << "\n\tItem total price: " << obj.getItem(indexOfItem).getTotalPrice() << endl;
+							obj.gotoXY(50, 7);
+							cout << "\u001b[32mITEM NAME:     \u001b[0m " << obj.getItem(indexOfItem).getItemName() << endl;
+							obj.gotoXY(50, 8);											  
+							cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << obj.getItem(indexOfItem).getQuantity() << endl;
+							obj.gotoXY(50, 9);											 
+							cout << "\u001b[32mITEM PRICE:    \u001b[0m " << obj.getItem(indexOfItem).getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
 						}
 					} while (indexOfItem == -1);
 					pauseAndClear();
