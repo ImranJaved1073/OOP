@@ -17,14 +17,14 @@ public:
 	Purchase();
 	Purchase(const Purchase&);
 	const Purchase& operator=(const Purchase&);
-	Purchase(Item*, int);
+	Purchase(const Item*, int);
 	int getPurchaseSize() const;
 	int getCurrentSize() const;
 	void setIndex(int);
-	Item* getPurchaseItemArray() const;
+	const Item* getPurchaseItemArray() const;
 	~Purchase();
 
-	void setItemPurshased(Item*, int);
+	void setItemPurshased(const Item*, int);
 	void addPurshase(Stock&);
 	bool updatePurchasedItem(string, Stock&);
 	bool deletePurchasedItem(string, Stock&);

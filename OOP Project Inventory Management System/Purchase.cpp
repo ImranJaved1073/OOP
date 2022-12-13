@@ -80,7 +80,7 @@ const Purchase& Purchase::operator=(const Purchase& purchase)
 	return *this;
 }
 
-Purchase::Purchase(Item* a, int s)
+Purchase::Purchase(const Item* a, int s)
 {
 	PurchaseItem = new Item[s];
 	purchaseSize = s;
@@ -91,7 +91,7 @@ Purchase::Purchase(Item* a, int s)
 	}
 }
 
-Item* Purchase::getPurchaseItemArray() const
+const Item* Purchase::getPurchaseItemArray() const
 {
 	return PurchaseItem;
 }
@@ -109,7 +109,7 @@ Purchase::~Purchase()
 		PurchaseItem = nullptr;
 	}
 }
-void Purchase::setItemPurshased(Item* arr, int s)
+void Purchase::setItemPurshased(const Item* arr, int s)
 {
 	PurchaseItem = new Item[s];
 	purchaseSize = s;

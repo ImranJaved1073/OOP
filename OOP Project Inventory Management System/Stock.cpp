@@ -55,7 +55,7 @@ Stock::~Stock()
 	}
 }
 
-Item* Stock::getItems() const
+const Item* Stock::getItems() const
 {
 	return items;
 }

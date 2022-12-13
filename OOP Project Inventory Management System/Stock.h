@@ -22,7 +22,7 @@ public:
 	Stock(const Stock& stock);
 	~Stock();
 
-	Item* getItems() const;
+	const Item* getItems() const;
 	Item getItem(int) const;
 	int getSize() const;
 	int getCapacity() const;
