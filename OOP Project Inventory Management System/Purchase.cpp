@@ -59,6 +59,11 @@ Purchase::Purchase(const Purchase& purchase)
 	}
 }
 
+Item& Purchase::operator[](const int index) const
+{
+	return PurchaseItem[index];
+}
+
 //overloaded assignment operator
 const Purchase& Purchase::operator=(const Purchase& purchase)
 {
@@ -159,17 +164,17 @@ void Purchase::addPurshase(Stock& obj)
 				cout << "\n\t\tHow much quantity of \u001b[33m" << itemName << "\u001b[0m do you want to purchase? ";
 				cin >> CustomerQuantity;
 
-				while (obj.getItem(indextemp).getQuantity() < CustomerQuantity)
+				while ( obj[indextemp].getQuantity() < CustomerQuantity)
 				{
 					cout << "\n\n\t\t\u001b[33mSorry, we don't have enough quantity of \u001b[34m" << itemName << "\u001b[33m. We only have \u001b[34m";
-					cout << obj.getItem(indextemp).getQuantity() << "\u001b[33m " << itemName << endl;
+					cout << obj[indextemp].getQuantity() << "\u001b[33m " << itemName << endl;
 
-					cout << "\u001b[0m\n\t\tPlease enter quantity less than or equal to " << obj.getItem(indextemp).getQuantity() << endl;
+					cout << "\u001b[0m\n\t\tPlease enter quantity less than or equal to " << obj[indextemp].getQuantity() << endl;
 
 					cout << "\n\t\tHow many \u001b[33m" << itemName << "\u001b[0m do you want to purchase? ";
 					cin >> CustomerQuantity;
 				}
-				PurchaseItem[currentSize] = obj.getItem(indextemp);
+				PurchaseItem[currentSize] = obj[indextemp];
 				PurchaseItem[currentSize].setQuantity(CustomerQuantity);
 				PurchaseItem[currentSize].setTotalPrice();
 				obj.updateItem(CustomerQuantity, itemName);
@@ -207,7 +212,7 @@ bool Purchase::updatePurchasedItem(string name, Stock& obj)
 			cout << "Enter quantity of \u001b[33m" << PurchaseItem[flag].getItemName() << "\u001b[0m you want to buy: ";
 			cin >> quantity;
 
-		} while (quantity > obj.getItem(indexStockItem).getQuantity());
+		} while (quantity > obj[indexStockItem].getQuantity());
 		
 		PurchaseItem[flag].setQuantity(quantity);
 		PurchaseItem[flag].setTotalPrice();
@@ -278,6 +283,45 @@ void Purchase::gotoXY(int x, int y)
 	coord.X = x;
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void Purchase::printStock(Stock & obj)
+{
+	HANDLE s = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (obj.getSize() == 0)
+	{
+		cout << "\n\n\n\t\t\u001b[34mSTOCK IS EMPTY!!\u001b[0m" << endl;
+	}
+	else
+	{
+		SetConsoleTextAttribute(s, 15);
+		gotoXY(40, 5);
+		cout << "\u001b[43m-------------------------------------------------------------------------------------------\u001b[0m" << endl;
+		gotoXY(40, 6);
+		cout << "|\u001b[32m	ITEM #\u001b[0m";
+		gotoXY(70, 6);
+		cout << "|       \u001b[32mITEM NAME\u001b[0m";
+		gotoXY(100, 6);
+		cout << "|         \u001b[32mPRICE\u001b[0m";
+		gotoXY(130, 6);
+		cout << "|";
+		gotoXY(40, 7);
+		cout << "\u001b[43m-------------------------------------------------------------------------------------------\u001b[0m" << endl;
+		for (int i = 0; i < obj.getSize(); i++)
+		{
+			gotoXY(40, 8 + i);
+			cout << "|     " << "\u001b[33m" << i + 1 << "\u001b[0m";
+			gotoXY(70, 8 + i);
+			cout << "| " << obj[i].getItemName();
+			gotoXY(100, 8 + i);
+			cout << "| " << obj[i].getPrice() << "/= Rs.";
+			gotoXY(130, 8 + i);
+			cout << "|";
+		}
+		gotoXY(40, 8 + obj.getSize());
+		cout << "\u001b[43m-------------------------------------------------------------------------------------------\u001b[0m" << endl;
+		SetConsoleTextAttribute(s, 7);
+	}
 }
 
 void Purchase::displayReceipt()

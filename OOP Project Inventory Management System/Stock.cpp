@@ -65,6 +65,11 @@ Item Stock::getItem(int index) const
 	return items[index];
 }
 
+Item& Stock::operator[](const int index) const
+{
+	return items[index];
+}
+
 int Stock::getSize() const
 {
 	return size;
@@ -186,6 +191,7 @@ void Stock::addItem(Item item)
 		}
 	}
 	items[size] = item;
+	//setItem(item, size);
 	size++;
 }
 
@@ -264,14 +270,14 @@ int Stock::updateItem(string itemCode)
 			if (choice1 == 1)
 			{
 				items[index].setQuantity(items[index].getQuantity() + quantity);
-				cout << "\u001b[34m\n\n\t\tThe Quantity of " << getItem(index).getItemName() << " against " << itemCode << " code has been added successfully.\u001b[0m" << endl << endl;
+				cout << "\u001b[34m\n\n\t\tThe Quantity of " << items[index].getItemName() << " against " << itemCode << " code has been added successfully.\u001b[0m" << endl << endl;
 			}
 			else
 			{
 				if (items[index].getQuantity() > quantity)
 				{
 					items[index].setQuantity(items[index].getQuantity() - quantity);
-					cout << "\u001b[34m\n\n\t\tThe Quantity of " << getItem(index).getItemName() << " against " << itemCode << " code has been removed successfully.\u001b[0m" << endl << endl;
+					cout << "\u001b[34m\n\n\t\tThe Quantity of " << items[index].getItemName() << " against " << itemCode << " code has been removed successfully.\u001b[0m" << endl << endl;
 				}
 				else
 					cout << "\n\n\t\t\u001b[31mNot enough quantity in stock.\u001b[0m\n\n";
@@ -295,7 +301,7 @@ int Stock::updateItem(string itemCode)
 			}
 			items[index].setPrice(cost);
 			items[index].setTotalPrice();
-			cout << "\u001b[34m\n\n\t\tThe Price of " << getItem(index).getItemName() << " against " << itemCode << " code has been updated successfully.\u001b[0m" << endl << endl;
+			cout << "\u001b[34m\n\n\t\tThe Price of " << items[index].getItemName() << " against " << itemCode << " code has been updated successfully.\u001b[0m" << endl << endl;
 		}
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');

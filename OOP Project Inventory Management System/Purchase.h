@@ -32,7 +32,9 @@ public:
 	void displayReceipt();
 
 	void gotoXY(int, int);
-
+	//overload index operator
+	Item& operator[](const int index) const;
+	void printStock(Stock&);
 	void pauseAndClear();
 
 };

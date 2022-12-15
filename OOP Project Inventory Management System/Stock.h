@@ -47,6 +47,8 @@ public:
 	char getValidChoice();
 
 	Stock operator=(const Stock& stock);
+	//overload index operator
+	Item& operator[](const int index) const;
 
 };
 

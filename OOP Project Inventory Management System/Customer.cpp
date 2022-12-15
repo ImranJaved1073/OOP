@@ -162,7 +162,7 @@ void Customer::customerAccess()
 
 		case 2:
 		{
-			obj.printStock();
+			purchaseItem.printStock(obj);
 			pauseAndClear();
 			break;
 		}
@@ -187,11 +187,11 @@ void Customer::customerAccess()
 						else
 						{
 							obj.gotoXY(50, 7);
-							cout << "\u001b[32mITEM NAME:     \u001b[0m " << obj.getItem(indexOfItem).getItemName() << endl;
-							obj.gotoXY(50, 8);											  
-							cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << obj.getItem(indexOfItem).getQuantity() << endl;
-							obj.gotoXY(50, 9);											 
-							cout << "\u001b[32mITEM PRICE:    \u001b[0m " << obj.getItem(indexOfItem).getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
+							cout << "\u001b[32mITEM NAME:     \u001b[0m " << obj[indexOfItem].getItemName() << endl;
+							obj.gotoXY(50, 8);
+							cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << obj[indexOfItem].getQuantity() << endl;
+							obj.gotoXY(50, 9);
+							cout << "\u001b[32mITEM PRICE:    \u001b[0m " << obj[indexOfItem].getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
 						}
 					} while (indexOfItem == -1);
 					pauseAndClear();
