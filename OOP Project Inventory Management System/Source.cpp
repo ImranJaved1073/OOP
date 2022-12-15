@@ -175,7 +175,6 @@ public:
 	~Stock();
 
 	const Item* getItems() const;
-	Item getItem(int) const;
 	int getSize() const;
 	int getCapacity() const;
 
@@ -198,7 +197,8 @@ public:
 	void gotoXY(int, int);
 	char getValidChoice();
 
-	Stock operator=(const Stock& stock);
+	Stock operator=(const Stock&);
+	Item& operator[](const int) const;
 
 };
 
@@ -251,7 +251,7 @@ const Item* Stock::getItems() const
 	return items;
 }
 
-Item Stock::getItem(int index) const
+Item& Stock::operator[](const int index) const
 {
 	return items[index];
 }
@@ -455,14 +455,14 @@ int Stock::updateItem(string itemCode)
 			if (choice1 == 1)
 			{
 				items[index].setQuantity(items[index].getQuantity() + quantity);
-				cout << "\u001b[34m\n\n\t\tThe Quantity of " << getItem(index).getItemName() << " against " << itemCode << " code has been added successfully.\u001b[0m" << endl << endl;
+				cout << "\u001b[34m\n\n\t\tThe Quantity of " << items[index].getItemName() << " against " << itemCode << " code has been added successfully.\u001b[0m" << endl << endl;
 			}
 			else
 			{
 				if (items[index].getQuantity() > quantity)
 				{
 					items[index].setQuantity(items[index].getQuantity() - quantity);
-					cout << "\u001b[34m\n\n\t\tThe Quantity of " << getItem(index).getItemName() << " against " << itemCode << " code has been removed successfully.\u001b[0m" << endl << endl;
+					cout << "\u001b[34m\n\n\t\tThe Quantity of " << items[index].getItemName() << " against " << itemCode << " code has been removed successfully.\u001b[0m" << endl << endl;
 				}
 				else
 					cout << "\n\n\t\t\u001b[31mNot enough quantity in stock.\u001b[0m\n\n";
@@ -486,7 +486,7 @@ int Stock::updateItem(string itemCode)
 			}
 			items[index].setPrice(cost);
 			items[index].setTotalPrice();
-			cout << "\u001b[34m\n\n\t\tThe Price of " << getItem(index).getItemName() << " against " << itemCode << " code has been updated successfully.\u001b[0m" << endl << endl;
+			cout << "\u001b[34m\n\n\t\tThe Price of " << items[index].getItemName() << " against " << itemCode << " code has been updated successfully.\u001b[0m" << endl << endl;
 		}
 		cin.clear();
 		cin.ignore(1000, '\n');
@@ -639,9 +639,10 @@ public:
 	bool deletePurchasedItem(string, Stock&);
 	int searchPurchasedItem(string name);
 	void displayReceipt();
+	Item& operator[](const int) const;
+	void printStock(Stock&);
 
 	void gotoXY(int, int);
-
 	void pauseAndClear();
 
 };
@@ -696,6 +697,11 @@ Purchase::Purchase(const Purchase& purchase)
 	{
 		this->PurchaseItem[i] = purchase.PurchaseItem[i];
 	}
+}
+
+Item& Purchase::operator[](const int index) const
+{
+	return PurchaseItem[index];
 }
 
 //overloaded assignment operator
@@ -798,17 +804,17 @@ void Purchase::addPurshase(Stock& obj)
 				cout << "\n\t\tHow much quantity of \u001b[33m" << itemName << "\u001b[0m do you want to purchase? ";
 				cin >> CustomerQuantity;
 
-				while (obj.getItem(indextemp).getQuantity() < CustomerQuantity)
+				while ( obj[indextemp].getQuantity() < CustomerQuantity)
 				{
 					cout << "\n\n\t\t\u001b[33mSorry, we don't have enough quantity of \u001b[34m" << itemName << "\u001b[33m. We only have \u001b[34m";
-					cout << obj.getItem(indextemp).getQuantity() << "\u001b[33m " << itemName << endl;
+					cout << obj[indextemp].getQuantity() << "\u001b[33m " << itemName << endl;
 
-					cout << "\u001b[0m\n\t\tPlease enter quantity less than or equal to " << obj.getItem(indextemp).getQuantity() << endl;
+					cout << "\u001b[0m\n\t\tPlease enter quantity less than or equal to " << obj[indextemp].getQuantity() << endl;
 
 					cout << "\n\t\tHow many \u001b[33m" << itemName << "\u001b[0m do you want to purchase? ";
 					cin >> CustomerQuantity;
 				}
-				PurchaseItem[currentSize] = obj.getItem(indextemp);
+				PurchaseItem[currentSize] = obj[indextemp];
 				PurchaseItem[currentSize].setQuantity(CustomerQuantity);
 				PurchaseItem[currentSize].setTotalPrice();
 				obj.updateItem(CustomerQuantity, itemName);
@@ -846,7 +852,7 @@ bool Purchase::updatePurchasedItem(string name, Stock& obj)
 			cout << "Enter quantity of \u001b[33m" << PurchaseItem[flag].getItemName() << "\u001b[0m you want to buy: ";
 			cin >> quantity;
 
-		} while (quantity > obj.getItem(indexStockItem).getQuantity());
+		} while (quantity > obj[indexStockItem].getQuantity());
 		
 		PurchaseItem[flag].setQuantity(quantity);
 		PurchaseItem[flag].setTotalPrice();
@@ -860,7 +866,6 @@ bool Purchase::updatePurchasedItem(string name, Stock& obj)
 	}
 	//pauseAndClear();
 }
-
 
 bool Purchase::deletePurchasedItem(string name, Stock& obj)
 {
@@ -917,6 +922,45 @@ void Purchase::gotoXY(int x, int y)
 	coord.X = x;
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void Purchase::printStock(Stock & obj)
+{
+	HANDLE s = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (obj.getSize() == 0)
+	{
+		cout << "\n\n\n\t\t\u001b[34mSTOCK IS EMPTY!!\u001b[0m" << endl;
+	}
+	else
+	{
+		SetConsoleTextAttribute(s, 15);
+		gotoXY(40, 5);
+		cout << "\u001b[43m-------------------------------------------------------------------------------------------\u001b[0m" << endl;
+		gotoXY(40, 6);
+		cout << "|\u001b[32m	ITEM #\u001b[0m";
+		gotoXY(70, 6);
+		cout << "|       \u001b[32mITEM NAME\u001b[0m";
+		gotoXY(100, 6);
+		cout << "|         \u001b[32mPRICE\u001b[0m";
+		gotoXY(130, 6);
+		cout << "|";
+		gotoXY(40, 7);
+		cout << "\u001b[43m-------------------------------------------------------------------------------------------\u001b[0m" << endl;
+		for (int i = 0; i < obj.getSize(); i++)
+		{
+			gotoXY(40, 8 + i);
+			cout << "|     " << "\u001b[33m" << i + 1 << "\u001b[0m";
+			gotoXY(70, 8 + i);
+			cout << "| " << obj[i].getItemName();
+			gotoXY(100, 8 + i);
+			cout << "| " << obj[i].getPrice() << "/= Rs.";
+			gotoXY(130, 8 + i);
+			cout << "|";
+		}
+		gotoXY(40, 8 + obj.getSize());
+		cout << "\u001b[43m-------------------------------------------------------------------------------------------\u001b[0m" << endl;
+		SetConsoleTextAttribute(s, 7);
+	}
 }
 
 void Purchase::displayReceipt()
@@ -1290,13 +1334,13 @@ void Admin::adminAccess()
 					else
 					{
 						stock.gotoXY(50, 6);
-						cout << "\u001b[32mITEM NAME:     \u001b[0m " << stock.getItem(index).getItemName() << endl;
+						cout << "\u001b[32mITEM NAME:     \u001b[0m " << stock[index].getItemName() << endl;
 						stock.gotoXY(50, 7);
-						cout << "\u001b[32mITEM CODE:     \u001b[0m " << stock.getItem(index).getItemCode() << endl;
+						cout << "\u001b[32mITEM CODE:     \u001b[0m " << stock[index].getItemCode() << endl;
 						stock.gotoXY(50, 8);
-						cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << stock.getItem(index).getQuantity() << endl;
+						cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << stock[index].getQuantity() << endl;
 						stock.gotoXY(50, 9);
-						cout << "\u001b[32mITEM PRICE:    \u001b[0m " << stock.getItem(index).getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
+						cout << "\u001b[32mITEM PRICE:    \u001b[0m " << stock[index].getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
 					}
 
 					pauseAndClear();
@@ -1634,13 +1678,13 @@ void Employee::employeeAccess()
 					else
 					{
 						object.gotoXY(50, 6);
-						cout << "\u001b[32mITEM NAME:     \u001b[0m " << object.getItem(index).getItemName() << endl;
+						cout << "\u001b[32mITEM NAME:     \u001b[0m " << object[index].getItemName() << endl;
 						object.gotoXY(50, 7);
-						cout << "\u001b[32mITEM CODE:     \u001b[0m " << object.getItem(index).getItemCode() << endl;
+						cout << "\u001b[32mITEM CODE:     \u001b[0m " << object[index].getItemCode() << endl;
 						object.gotoXY(50, 8);
-						cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << object.getItem(index).getQuantity() << endl;
+						cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << object[index].getQuantity() << endl;
 						object.gotoXY(50, 9);
-						cout << "\u001b[32mITEM PRICE:    \u001b[0m " << object.getItem(index).getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
+						cout << "\u001b[32mITEM PRICE:    \u001b[0m " << object[index].getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
 					}
 					pauseAndClear();
 					cout << "\n\n\tDo you want to search another item? (press y for yes and any other key for no): ";
@@ -1848,7 +1892,7 @@ void Customer::customerAccess()
 		{
 		case 1:
 		{
-			obj.printStock();
+			purchaseItem.printStock(obj);
 			receiptStatus = false;
 			purchaseItem.addPurshase(obj);
 
@@ -1857,7 +1901,7 @@ void Customer::customerAccess()
 
 		case 2:
 		{
-			obj.printStock();
+			purchaseItem.printStock(obj);
 			pauseAndClear();
 			break;
 		}
@@ -1882,11 +1926,11 @@ void Customer::customerAccess()
 						else
 						{
 							obj.gotoXY(50, 7);
-							cout << "\u001b[32mITEM NAME:     \u001b[0m " << obj.getItem(indexOfItem).getItemName() << endl;
-							obj.gotoXY(50, 8);											  
-							cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << obj.getItem(indexOfItem).getQuantity() << endl;
-							obj.gotoXY(50, 9);											 
-							cout << "\u001b[32mITEM PRICE:    \u001b[0m " << obj.getItem(indexOfItem).getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
+							cout << "\u001b[32mITEM NAME:     \u001b[0m " << obj[indexOfItem].getItemName() << endl;
+							obj.gotoXY(50, 8);
+							cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << obj[indexOfItem].getQuantity() << endl;
+							obj.gotoXY(50, 9);
+							cout << "\u001b[32mITEM PRICE:    \u001b[0m " << obj[indexOfItem].getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
 						}
 					} while (indexOfItem == -1);
 					pauseAndClear();
@@ -2033,7 +2077,7 @@ void Customer::customerAccess()
 
 int main()
 {
-	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
+	//ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 	Stock stock;
 	displayIntro();
 
