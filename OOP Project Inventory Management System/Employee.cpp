@@ -250,13 +250,13 @@ void Employee::employeeAccess()
 					else
 					{
 						object.gotoXY(50, 6);
-						cout << "\u001b[32mITEM NAME:     \u001b[0m " << object.getItem(index).getItemName() << endl;
+						cout << "\u001b[32mITEM NAME:     \u001b[0m " << object[index].getItemName() << endl;
 						object.gotoXY(50, 7);
-						cout << "\u001b[32mITEM CODE:     \u001b[0m " << object.getItem(index).getItemCode() << endl;
+						cout << "\u001b[32mITEM CODE:     \u001b[0m " << object[index].getItemCode() << endl;
 						object.gotoXY(50, 8);
-						cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << object.getItem(index).getQuantity() << endl;
+						cout << "\u001b[32mITEM QUANTITY: \u001b[0m " << object[index].getQuantity() << endl;
 						object.gotoXY(50, 9);
-						cout << "\u001b[32mITEM PRICE:    \u001b[0m " << object.getItem(index).getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
+						cout << "\u001b[32mITEM PRICE:    \u001b[0m " << object[index].getPrice() << "/=\u001b[35m Rs.\u001b[0m" << endl;
 					}
 					pauseAndClear();
 					cout << "\n\n\tDo you want to search another item? (press y for yes and any other key for no): ";
