@@ -15,11 +15,12 @@ class Set
 public:
 	Set(int = 10);
 	~Set();
+	Set(const Set<T>&);
 	int getLength() const;
 	int getIndex() const;
 	T getElement(int) const;
 	T& operator[](const int);
-	//MyArray& operator=(const MyArray& a);
+	Set<T>& operator=(const Set<T>&);
 	void insert(T);
 	void remove(T);
 	bool isMember(T);
@@ -55,6 +56,18 @@ Set<T>::Set(int s)
 	size = s;
 	index = 0;
 	arr = new T[size];
+}
+
+template <class T>
+Set<T>::Set(const Set<T>& rhs)
+{
+	size = rhs.size;
+	index = rhs.index;
+	arr = new T[size];
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = rhs.arr[i];
+	}
 }
 
 template <class T>
@@ -173,6 +186,27 @@ Set<T> Set<T>::difference(const Set<T>& lhs, const Set<T>& rhs)
 }
 
 template <class T>
+Set<T>& Set<T>::operator=(const Set<T>& rhs)
+{
+	if (this != &rhs)
+	{
+		if (arr)
+		{
+			delete[] arr;
+			arr = nullptr;
+		}
+		size = rhs.size;
+		index = rhs.index;
+		arr = new T[size];
+		for (int i = 0; i < size; i++)
+		{
+			arr[i] = rhs.arr[i];
+		}
+	}
+	return *this;
+}
+
+template <class T>
 Set<T> Set<T>::operator-(const Set<T>& rhs)
 {
 	return difference(*this, rhs);
@@ -220,4 +254,3 @@ bool Set<T>::isSubset(const Set<T>& lhs)
 }
 
 #endif // !SET_H
-
